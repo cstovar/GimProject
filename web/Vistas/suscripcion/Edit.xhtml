@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SuscripcionEditDlg" widgetVar="SuscripcionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditSuscripcionTitle}">
+            <h:form id="SuscripcionEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{suscripcionController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditSuscripcionLabel_idSuscripcion}" for="idSuscripcion" />
+                        <p:inputText id="idSuscripcion" value="#{suscripcionController.selected.idSuscripcion}" title="#{bundle.EditSuscripcionTitle_idSuscripcion}" required="true" requiredMessage="#{bundle.EditSuscripcionRequiredMessage_idSuscripcion}"/>
+                        <p:outputLabel value="#{bundle.EditSuscripcionLabel_fechaInicio}" for="fechaInicio" />
+                        <p:calendar id="fechaInicio" pattern="MM/dd/yyyy" value="#{suscripcionController.selected.fechaInicio}" title="#{bundle.EditSuscripcionTitle_fechaInicio}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditSuscripcionLabel_fechaFin}" for="fechaFin" />
+                        <p:calendar id="fechaFin" pattern="MM/dd/yyyy" value="#{suscripcionController.selected.fechaFin}" title="#{bundle.EditSuscripcionTitle_fechaFin}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditSuscripcionLabel_estado}" for="estado" />
+                        <p:selectBooleanCheckbox id="estado" value="#{suscripcionController.selected.estado}" />
+                        <p:outputLabel value="#{bundle.EditSuscripcionLabel_clienteIdCliente}" for="clienteIdCliente" />
+                        <p:selectOneMenu id="clienteIdCliente" value="#{suscripcionController.selected.clienteIdCliente}" required="true" requiredMessage="#{bundle.EditSuscripcionRequiredMessage_clienteIdCliente}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{clienteController.itemsAvailableSelectOne}"
+                                           var="clienteIdClienteItem"
+                                           itemValue="#{clienteIdClienteItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{suscripcionController.update}" value="#{bundle.Save}" update="display,:SuscripcionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SuscripcionEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SuscripcionEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

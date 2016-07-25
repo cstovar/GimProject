@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Login</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:inputText value="#{usuarioController.selected.nombreUsuario}" id="nombreUsuario"  title="#{bundle.CreateUsuarioTitle_nombreUsuario}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nombreUsuario}"/>     
+            <p:password value="#{usuarioController.selected.clave}" id="clave" title="#{bundle.CreateUsuarioTitle_clave}" />
+            <p:commandButton actionListener="#{usuarioController.login()}" value="Ingresar"/>   
+        </h:form>
+    </h:body>
+</html>
+

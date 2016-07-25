@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SuscripcionViewDlg" widgetVar="SuscripcionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSuscripcionTitle}">
+            <h:form id="SuscripcionViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{suscripcionController.selected != null}">
+                        <h:outputText value="#{bundle.ViewSuscripcionLabel_idSuscripcion}"/>
+                        <h:outputText value="#{suscripcionController.selected.idSuscripcion}" title="#{bundle.ViewSuscripcionTitle_idSuscripcion}"/>
+                        <h:outputText value="#{bundle.ViewSuscripcionLabel_fechaInicio}"/>
+                        <h:outputText value="#{suscripcionController.selected.fechaInicio}" title="#{bundle.ViewSuscripcionTitle_fechaInicio}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewSuscripcionLabel_fechaFin}"/>
+                        <h:outputText value="#{suscripcionController.selected.fechaFin}" title="#{bundle.ViewSuscripcionTitle_fechaFin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewSuscripcionLabel_estado}"/>
+                        <p:selectBooleanCheckbox value="#{suscripcionController.selected.estado}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewSuscripcionLabel_clienteIdCliente}"/>
+                        <h:outputText value="#{suscripcionController.selected.clienteIdCliente}" title="#{bundle.ViewSuscripcionTitle_clienteIdCliente}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="SuscripcionViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -7,7 +7,15 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
+        
+        <script type="text/javascript" >
+// Disable #x
+$( "fechainicio" ).prop( "disabled", true );
 
+// Enable #x
+$( "fechainicio" ).prop( "disabled", false );
+        </script>
+       
         <p:dialog id="ClienteCreateDlg" widgetVar="ClienteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateClienteTitle}">
             <h:form id="ClienteCreateForm">
                 <h:panelGroup id="display">
@@ -21,16 +29,20 @@
                             <p:inputText id="apellidos" value="#{clienteController.selected.apellidos}" title="#{bundle.CreateClienteTitle_apellidos}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_apellidos}"/>
 
                             <p:outputLabel value="#{bundle.CreateSuscripcionLabel_fechaInicio}" />
-                            <p:outputLabel value="#{suscripcionController.getFechaActual()}"/> 
+                            <p:calendar id="fechaInicio" pattern="yyyy-MM-dd" value="#{suscripcionController.getFechaActual()}" title="#{bundle.EditSuscripcionTitle_fechaInicio}"  showOn="button" readonly="true"/>             
+                              
 
                             <p:outputLabel value="#{bundle.CreateClienteLabel_terminoSuscripcion}" for="terminoSuscripcion" />
                             <p:selectOneMenu id="terminoSuscripcion" value="#{clienteController.selected.terminoSuscripcion}" required="true" requiredMessage="#{bundle.EditSuscripcionRequiredMessage_clienteIdCliente}">
-                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItem itemLabel="Seleccione" itemValue="" />
                                 <f:selectItem itemLabel="Un Mes" itemValue="Un Mes" />
                                 <f:selectItem itemLabel="Dos Meses" itemValue="Dos Meses" />
                                 <f:selectItem itemLabel="Tres Meses" itemValue="Tres Meses" />
                                 <f:selectItem itemLabel="Seis Meses" itemValue="Seis Meses" />
                             </p:selectOneMenu>
+
+                            <p:outputLabel value="#{bundle.CreateSuscripcionLabel_fechaFin}" />
+                            <p:calendar pattern="yyyy-MM-dd" value="#{suscripcionController.getFechaFinal('Tres Meses')}"/> 
 
                             <p:outputLabel value="#{bundle.CreateClienteLabel_identificacion}" for="identificacion" />
                             <p:inputText id="identificacion" value="#{clienteController.selected.identificacion}" title="#{bundle.CreateClienteTitle_identificacion}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_identificacion}"/>

@@ -6,13 +6,35 @@
     <h:head>
         <title>Login</title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
+        <link href="resources/css/Login.css" rel="stylesheet" type="text/css"/>
     </h:head>
-    <h:body>
-        <h:form>
-            <p:inputText value="#{usuarioController.selected.nombreUsuario}" id="nombreUsuario"  title="#{bundle.CreateUsuarioTitle_nombreUsuario}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nombreUsuario}"/>     
-            <p:password value="#{usuarioController.selected.clave}" id="clave" title="#{bundle.CreateUsuarioTitle_clave}" />
-            <p:commandButton actionListener="#{usuarioController.login()}" value="Ingresar"/>   
-        </h:form>
+    <h:body id="body" class="body">
+       <!-- <center> -->
+       <div id="partnert">
+                <br/><br/><br/><br/><br/>
+                <table class="loginTable" id="hol" border="0"  style="" >
+                    <tr>
+                        <center>
+                            <td style="border-radius: 10px;">
+                                <center>
+                                    <h:form class="formulario">            
+                                        <p:growl id="growl" autoUpdate="true"  showDetail="true"/>
+                                        <h:panelGrid columns="1" cellpadding="">
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <p:inputText class="username" value="#{usuarioController.selected.nombreUsuario}" id="nombreUsuario"  title="#{bundle.CreateUsuarioLabel_nombreUsuario}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nombreUsuario}" placeholder="&#128272; Ingrese su Usuario"/>     
+                                            <p:password  class="clave" value="#{usuarioController.selected.clave}" id="clave" title="#{bundle.CreateUsuarioLabel_clave}" required="true" requiredMessage="El campo Clave es obligatorio" placeholder="&#128272; Ingrese su contraseña"/>
+                                            <p:commandButton class="loginButton" actionListener="#{usuarioController.login()}" value="Ingresar"/>    
+                                        </h:panelGrid> 
+                                    </h:form>
+                                </center>
+                            </td>
+                        </center>
+                    </tr>
+                </table>
+            </div>
+       <!-- </center> -->
     </h:body>
 </html>
 

@@ -3,7 +3,6 @@ package co.com.gimproject.controladores;
 import co.com.gimproject.modelos.Suscripcion;
 import co.com.gimproject.controladores.util.JsfUtil;
 import co.com.gimproject.controladores.util.JsfUtil.PersistAction;
-import co.com.gimproject.modelos.Cliente;
 import co.com.gimproject.operaciones.SuscripcionFacade;
 
 import java.io.Serializable;
@@ -33,32 +32,42 @@ public class SuscripcionController implements Serializable {
     private co.com.gimproject.operaciones.SuscripcionFacade ejbFacade;
     private List<Suscripcion> items = null;
     private Suscripcion selected;
-    private String fechafin;
-   
+    private Date fechainicio;
+    private Date fechafin;
 
-    public static String getFechaActual() {
+    public Date getFechaActual() {
         Date ahora = new Date();
-        SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
-        return "Hoy, " + formateador.format(ahora);
+//        SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
+        fechainicio = ahora;
+        return ahora;
     }
 
-    public String getFechaFinal(String termino) {
+    public Date getFechaFinal(String termino) {
         Date ahora = new Date();
         Calendar calendario = Calendar.getInstance();
         calendario.setTime(ahora);
         SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
-        if (termino == "Un Mes") {
-            calendario.add(Calendar.MONTH, 1);
-            fechafin = formateador.format(calendario.getTime());
-        } else if (termino == "Dos Meses") {
-            calendario.add(Calendar.MONTH, 2);
-            fechafin = formateador.format(calendario.getTime());
-        } else if (termino == "Tres Meses") {
-            calendario.add(Calendar.MONTH, 3);
-            fechafin = formateador.format(calendario.getTime());
-        } else if (termino == "Seis Meses") {
-            calendario.add(Calendar.MONTH, 6);
-            fechafin = formateador.format(calendario.getTime());
+        if (termino != null) {
+            switch (termino) {
+                case "Un Mes":
+                    calendario.add(Calendar.MONTH, 1);
+                    fechafin = calendario.getTime();
+                    break;
+                case "Dos Meses":
+                    calendario.add(Calendar.MONTH, 2);
+                    fechafin = calendario.getTime();
+                    break;
+                case "Tres Meses":
+                    calendario.add(Calendar.MONTH, 3);
+                    fechafin = calendario.getTime();
+                    break;
+                case "Seis Meses":
+                    calendario.add(Calendar.MONTH, 6);
+                    fechafin = calendario.getTime();
+                    break;
+                default:
+                    break;
+            }
         }
         return fechafin;
     }
@@ -156,12 +165,20 @@ public class SuscripcionController implements Serializable {
         return getFacade().findAll();
     }
 
-    public String getFechafin() {
+    public Date getFechafin() {
         return fechafin;
     }
 
-    public void setFechafin(String fechafin) {
+    public void setFechafin(Date fechafin) {
         this.fechafin = fechafin;
+    }
+
+    public Date getFechainicio() {
+        return fechainicio;
+    }
+
+    public void setFechainicio(Date fechainicio) {
+        this.fechainicio = fechainicio;
     }
 
     @FacesConverter(forClass = Suscripcion.class)

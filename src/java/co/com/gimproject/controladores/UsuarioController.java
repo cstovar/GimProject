@@ -5,6 +5,7 @@ import co.com.gimproject.modelos.Usuario;
 import co.com.gimproject.controladores.util.JsfUtil;
 import co.com.gimproject.controladores.util.JsfUtil.PersistAction;
 import co.com.gimproject.operaciones.UsuarioFacade;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.List;
@@ -21,6 +22,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.servlet.http.HttpSession;
 import org.w3c.dom.Node;
 
 @Named("usuarioController")
@@ -48,6 +50,26 @@ public class UsuarioController implements Serializable {
         }
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡ERROR!", "El usuario o la contraseña no coinciden con ninguna cuenta"));
         return null;
+    }
+    
+    public void validarSesion() {
+        if (u.getNombreUsuario() == null) {
+            try {
+                ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+                context.redirect(context.getRequestContextPath() + "/faces/index.xhtml");
+
+            } catch (IOException ex) {
+                Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+        public void cerrarSesion() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        Object session = externalContext.getSession(false);
+        HttpSession httpSession = (HttpSession) session;
+        httpSession.invalidate();
     }
 
     public Usuario getSelected() {

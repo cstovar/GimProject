@@ -1,0 +1,64 @@
+.username,.clave
+{
+    border: 1px solid #DBE1EB;
+    font-size: 17px;
+    font-family: Good Times RG, Verdana;
+    padding-left: 7px;
+    margin: 0px auto;
+    padding-right: 7px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 7px;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -o-border-radius: 7px;
+    background: #FFFFFF;
+    background: linear-gradient(left, #FFFFFF, #F7F9FA);
+    background: -moz-linear-gradient(left, #FFFFFF, #F7F9FA);
+    background: -webkit-linear-gradient(left, #FFFFFF, #F7F9FA);
+    background: -o-linear-gradient(left, #FFFFFF, #F7F9FA);
+    color: #2E3133;
+}
+
+.username:focus,.clave:focus
+{
+    color: #2E3133;
+    border-color: #449AF6;
+}
+
+.body {
+    background-image: url("../images/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.loginTable {
+   margin-left: 100px;
+   width:375px; 
+   height: 375px;
+   border-radius: 10px; 
+   border-color: #000000; 
+   background: white;
+}
+
+.loginButton {
+    align-content: center;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+    font-family: Verdana;
+    color: #ffffff;
+    font-size: 15px;
+    background: #FF7F00;
+    cursor: pointer;  
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.loginButton:hover {
+    background:  #FF7F00;
+    opacity: 0,2;
+    text-decoration: none;
+    border-color: #449AF6;
+}
+

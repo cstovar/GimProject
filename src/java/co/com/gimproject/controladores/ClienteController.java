@@ -3,13 +3,9 @@ package co.com.gimproject.controladores;
 import co.com.gimproject.modelos.Cliente;
 import co.com.gimproject.controladores.util.JsfUtil;
 import co.com.gimproject.controladores.util.JsfUtil.PersistAction;
-import co.com.gimproject.modelos.Suscripcion;
 import co.com.gimproject.operaciones.ClienteFacade;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 import java.util.List;
 import java.util.ResourceBundle;
@@ -19,6 +15,7 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -26,6 +23,7 @@ import javax.faces.convert.FacesConverter;
 
 @Named("clienteController")
 @SessionScoped
+@ManagedBean
 public class ClienteController implements Serializable {
 
     @EJB

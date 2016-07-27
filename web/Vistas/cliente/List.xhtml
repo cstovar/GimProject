@@ -33,13 +33,13 @@
                             </f:facet>
                             <h:outputText value="#{item.foto}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.nombres}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_nombres}"/>
                             </f:facet>
                             <h:outputText value="#{item.nombres}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.apellidos}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_apellidos}"/>
                             </f:facet>
@@ -51,7 +51,7 @@
                             </f:facet>
                             <h:outputText value="#{item.terminoSuscripcion}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.identificacion}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_identificacion}"/>
                             </f:facet>
@@ -86,7 +86,7 @@
             </h:form>
 
             <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
+            <ui:include src="Edit.xhtml"/> 
             <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>

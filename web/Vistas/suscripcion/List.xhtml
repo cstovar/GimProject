@@ -59,7 +59,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSuscripcionTitle_clienteIdCliente}"/>
                             </f:facet>
-                            <h:outputText value="#{item.clienteIdCliente}"/>
+                            <h:outputText value="#{item.clienteIdCliente.nombres}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{suscripcionController.prepareCreate}" update=":SuscripcionCreateForm" oncomplete="PF('SuscripcionCreateDialog').show()"/>

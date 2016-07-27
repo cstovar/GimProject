@@ -12,8 +12,6 @@
             <h:form id="SuscripcionEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{suscripcionController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditSuscripcionLabel_idSuscripcion}" for="idSuscripcion" />
-                        <p:inputText id="idSuscripcion" value="#{suscripcionController.selected.idSuscripcion}" title="#{bundle.EditSuscripcionTitle_idSuscripcion}" required="true" requiredMessage="#{bundle.EditSuscripcionRequiredMessage_idSuscripcion}"/>
                         <p:outputLabel value="#{bundle.EditSuscripcionLabel_fechaInicio}" for="fechaInicio" />
                         <p:calendar id="fechaInicio" pattern="MM/dd/yyyy" value="#{suscripcionController.selected.fechaInicio}" title="#{bundle.EditSuscripcionTitle_fechaInicio}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditSuscripcionLabel_fechaFin}" for="fechaFin" />

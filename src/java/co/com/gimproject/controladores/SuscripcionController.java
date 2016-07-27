@@ -36,40 +36,50 @@ public class SuscripcionController implements Serializable {
     private Date fechafin;
 
     public Date getFechaActual() {
-        Date ahora = new Date();
+        try {
+            Date ahora = new Date();
 //        SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
-        fechainicio = ahora;
-        return ahora;
+            fechainicio = ahora;
+            selected.setFechaInicio(fechainicio);
+            return ahora;
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return null;
     }
 
-    public Date getFechaFinal(String termino) {
-        Date ahora = new Date();
-        Calendar calendario = Calendar.getInstance();
-        calendario.setTime(ahora);
-        SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
-        if (termino != null) {
-            switch (termino) {
-                case "Un Mes":
-                    calendario.add(Calendar.MONTH, 1);
-                    fechafin = calendario.getTime();
-                    break;
-                case "Dos Meses":
-                    calendario.add(Calendar.MONTH, 2);
-                    fechafin = calendario.getTime();
-                    break;
-                case "Tres Meses":
-                    calendario.add(Calendar.MONTH, 3);
-                    fechafin = calendario.getTime();
-                    break;
-                case "Seis Meses":
-                    calendario.add(Calendar.MONTH, 6);
-                    fechafin = calendario.getTime();
-                    break;
-                default:
-                    break;
+    public Date getFechaFinal(String termino, Date fechainicio) {
+        try {
+            Calendar calendario = Calendar.getInstance();
+            calendario.setTime(fechainicio);
+            //SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
+            if (termino != null) {
+                switch (termino) {
+                    case "Un Mes":
+                        calendario.add(Calendar.MONTH, 1);
+                        fechafin = calendario.getTime();
+                        break;
+                    case "Dos Meses":
+                        calendario.add(Calendar.MONTH, 2);
+                        fechafin = calendario.getTime();
+                        break;
+                    case "Tres Meses":
+                        calendario.add(Calendar.MONTH, 3);
+                        fechafin = calendario.getTime();
+                        break;
+                    case "Seis Meses":
+                        calendario.add(Calendar.MONTH, 6);
+                        fechafin = calendario.getTime();
+                        break;
+                    default:
+                        break;
+                }
             }
+            selected.setFechaFin(fechafin);
+            return fechafin;
+        } catch (Exception e) {
         }
-        return fechafin;
+        return null;
     }
 
     public SuscripcionController() {

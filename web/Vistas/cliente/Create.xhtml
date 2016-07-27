@@ -7,30 +7,22 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-        
-        <script type="text/javascript" >
-// Disable #x
-$( "fechainicio" ).prop( "disabled", true );
 
-// Enable #x
-$( "fechainicio" ).prop( "disabled", false );
-        </script>
-       
         <p:dialog id="ClienteCreateDlg" widgetVar="ClienteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateClienteTitle}">
             <h:form id="ClienteCreateForm">
+                  <input type="hidden" value="#{suscripcionController.fechaActual}"></input>
+                  <input id="fechaFinal" type="hidden" value="#{suscripcionController.getFechaFinal(clienteController.selected.terminoSuscripcion, suscripcionController.selected.fechaInicio)}">
+                      <p:ajax event="keyup" update="fechaFin" listener="#{suscripcionController.selected.fechaFin}"/>
+                  </input>
                 <h:panelGroup id="display">
                     <p:fieldset legend="Datos del Cliente">
                         <p:panelGrid columns="2" rendered="#{clienteController.selected != null}">
                             <p:outputLabel value="#{bundle.CreateClienteLabel_foto}" for="foto" />
-                            <p:inputTextarea rows="4" cols="30" id="foto" value="#{clienteController.selected.foto}" title="#{bundle.CreateClienteTitle_foto}" />
+                            <p:inputTextarea rows="4" cols="30" id="foto" value="#{clienteController.selected.foto}" title="#{bundle.CreateClienteTitle_foto}" /> 
                             <p:outputLabel value="#{bundle.CreateClienteLabel_nombres}" for="nombres" />
                             <p:inputText id="nombres" value="#{clienteController.selected.nombres}" title="#{bundle.CreateClienteTitle_nombres}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_nombres}"/>
                             <p:outputLabel value="#{bundle.CreateClienteLabel_apellidos}" for="apellidos" />
                             <p:inputText id="apellidos" value="#{clienteController.selected.apellidos}" title="#{bundle.CreateClienteTitle_apellidos}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_apellidos}"/>
-
-                            <p:outputLabel value="#{bundle.CreateSuscripcionLabel_fechaInicio}" />
-                            <p:calendar id="fechaInicio" pattern="yyyy-MM-dd" value="#{suscripcionController.getFechaActual()}" title="#{bundle.EditSuscripcionTitle_fechaInicio}"  showOn="button" readonly="true"/>             
-                              
 
                             <p:outputLabel value="#{bundle.CreateClienteLabel_terminoSuscripcion}" for="terminoSuscripcion" />
                             <p:selectOneMenu id="terminoSuscripcion" value="#{clienteController.selected.terminoSuscripcion}" required="true" requiredMessage="#{bundle.EditSuscripcionRequiredMessage_clienteIdCliente}">
@@ -39,10 +31,8 @@ $( "fechainicio" ).prop( "disabled", false );
                                 <f:selectItem itemLabel="Dos Meses" itemValue="Dos Meses" />
                                 <f:selectItem itemLabel="Tres Meses" itemValue="Tres Meses" />
                                 <f:selectItem itemLabel="Seis Meses" itemValue="Seis Meses" />
+                                <p:ajax event="keyup" update="fechaFinal" listener="#{suscripcionController.getFechaFinal('Tres Meses', suscripcionController.selected.fechaInicio)}" />
                             </p:selectOneMenu>
-
-                            <p:outputLabel value="#{bundle.CreateSuscripcionLabel_fechaFin}" />
-                            <p:calendar pattern="yyyy-MM-dd" value="#{suscripcionController.getFechaFinal('Tres Meses')}"/> 
 
                             <p:outputLabel value="#{bundle.CreateClienteLabel_identificacion}" for="identificacion" />
                             <p:inputText id="identificacion" value="#{clienteController.selected.identificacion}" title="#{bundle.CreateClienteTitle_identificacion}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_identificacion}"/>
@@ -52,6 +42,15 @@ $( "fechainicio" ).prop( "disabled", false );
                             <p:inputText id="telefono" value="#{clienteController.selected.telefono}" title="#{bundle.CreateClienteTitle_telefono}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_telefono}"/>
                         </p:panelGrid>
                     </p:fieldset>
+
+                   <p:fieldset legend="Datos de Suscripcion">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="#{bundle.CreateSuscripcionLabel_fechaInicio}" />
+                            <p:calendar id="fechaInicio" pattern="yyyy-MM-dd" value="#{suscripcionController.selected.fechaInicio}" title="#{bundle.EditSuscripcionTitle_fechaInicio}"  showOn="button" readonlyInput="true" effect="fold"/>               
+                            <p:outputLabel value="#{bundle.CreateSuscripcionLabel_fechaFin}" />
+                            <p:calendar id="fechaFin" pattern="yyyy-MM-dd" value="#{suscripcionController.selected.fechaFin}" readonlyInput="true" showOn="button" effect="fold"/> 
+                        </p:panelGrid>
+                    </p:fieldset>  
                     <p:commandButton actionListener="#{clienteController.create()}" value="#{bundle.Save}" update="display,:ClienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClienteCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ClienteCreateDialog.hide()"/>
                 </h:panelGroup>

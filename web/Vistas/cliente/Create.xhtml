@@ -46,9 +46,9 @@
                    <p:fieldset legend="Datos de Suscripcion">
                         <p:panelGrid columns="2">
                             <p:outputLabel value="#{bundle.CreateSuscripcionLabel_fechaInicio}" />
-                            <p:calendar id="fechaInicio" pattern="yyyy-MM-dd" value="#{suscripcionController.selected.fechaInicio}" title="#{bundle.EditSuscripcionTitle_fechaInicio}"  showOn="button" readonlyInput="true" effect="fold"/>               
+                            <p:calendar id="fechaInicio" pattern="yyyy-MM-dd" value="#{suscripcionController.selected.fechaInicio}" title="#{bundle.EditSuscripcionTitle_fechaInicio}"  showOn="button" readonlyInput="true" effect="fold" locale="es"/>               
                             <p:outputLabel value="#{bundle.CreateSuscripcionLabel_fechaFin}" />
-                            <p:calendar id="fechaFin" pattern="yyyy-MM-dd" value="#{suscripcionController.selected.fechaFin}" readonlyInput="true" showOn="button" effect="fold"/> 
+                            <p:calendar id="fechaFin" pattern="yyyy-MM-dd" value="#{suscripcionController.selected.fechaFin}" readonlyInput="true" showOn="button" effect="fold" locale="es"/> 
                         </p:panelGrid>
                     </p:fieldset>  
                     <p:commandButton actionListener="#{clienteController.create()}" value="#{bundle.Save}" update="display,:ClienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClienteCreateDialog');"/>

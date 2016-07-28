@@ -29,10 +29,18 @@
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSuscripcionTitle_idSuscripcion}"/>
+                                <h:outputText value="#{bundle.ListSuscripcionTitle_clienteIdCliente}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idSuscripcion}"/>
+                            <h:outputText value="#{item.clienteIdCliente.nombres}"/>
                         </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_foto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.clienteIdCliente.foto}"/>
+                        </p:column>
+                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSuscripcionTitle_fechaInicio}"/>
@@ -55,12 +63,7 @@
                             </f:facet>
                             <p:selectBooleanCheckbox value="#{item.estado}" disabled="true"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSuscripcionTitle_clienteIdCliente}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.clienteIdCliente.nombres}"/>
-                        </p:column>
+
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{suscripcionController.prepareCreate}" update=":SuscripcionCreateForm" oncomplete="PF('SuscripcionCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SuscripcionViewForm" oncomplete="PF('SuscripcionViewDialog').show()" disabled="#{empty suscripcionController.selected}"/>

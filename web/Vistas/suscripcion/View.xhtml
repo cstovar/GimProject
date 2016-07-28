@@ -16,16 +16,16 @@
                         <h:outputText value="#{suscripcionController.selected.idSuscripcion}" title="#{bundle.ViewSuscripcionTitle_idSuscripcion}"/>
                         <h:outputText value="#{bundle.ViewSuscripcionLabel_fechaInicio}"/>
                         <h:outputText value="#{suscripcionController.selected.fechaInicio}" title="#{bundle.ViewSuscripcionTitle_fechaInicio}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                            <f:convertDateTime pattern="yyyy/MM/dd" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewSuscripcionLabel_fechaFin}"/>
                         <h:outputText value="#{suscripcionController.selected.fechaFin}" title="#{bundle.ViewSuscripcionTitle_fechaFin}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                            <f:convertDateTime pattern="yyyy/MM/dd" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewSuscripcionLabel_estado}"/>
                         <p:selectBooleanCheckbox value="#{suscripcionController.selected.estado}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewSuscripcionLabel_clienteIdCliente}"/>
-                        <h:outputText value="#{suscripcionController.selected.clienteIdCliente}" title="#{bundle.ViewSuscripcionTitle_clienteIdCliente}"/>
+                        <h:outputText value="#{suscripcionController.selected.clienteIdCliente.nombres} #{suscripcionController.selected.clienteIdCliente.apellidos}" title="#{bundle.ViewSuscripcionTitle_clienteIdCliente}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="SuscripcionViewDialog.hide()"/>
                 </h:panelGroup>

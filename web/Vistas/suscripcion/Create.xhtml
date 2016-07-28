@@ -14,9 +14,9 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{suscripcionController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateSuscripcionLabel_fechaInicio}" for="fechaInicio" />
-                        <p:calendar id="fechaInicio" pattern="yyyy-MM-dd" value="#{suscripcionController.selected.fechaInicio}" title="#{bundle.EditSuscripcionTitle_fechaInicio}" readonlyInput="true" showOn="button"/>
+                        <p:calendar id="fechaInicio" pattern="yyyy-MM-dd" value="#{suscripcionController.selected.fechaInicio}" title="#{bundle.EditSuscripcionTitle_fechaInicio}" readonlyInput="true" showOn="button" locale="es"/>
                         <p:outputLabel value="#{bundle.CreateSuscripcionLabel_fechaFin}" for="fechaFin" />
-                        <p:calendar id="fechaFin" pattern="yyyy-MM-dd" value="#{suscripcionController.selected.fechaFin}" title="#{bundle.EditSuscripcionTitle_fechaFin}" readonlyInput="true" showOn="button"/>
+                        <p:calendar id="fechaFin" pattern="yyyy-MM-dd" value="#{suscripcionController.selected.fechaFin}" title="#{bundle.EditSuscripcionTitle_fechaFin}" readonlyInput="true" showOn="button" locale="es"/>
                         <p:outputLabel value="#{bundle.CreateSuscripcionLabel_estado}" for="estado" />
                         <p:selectBooleanCheckbox id="estado" value="#{suscripcionController.selected.estado}" />
                         <p:outputLabel value="#{bundle.CreateSuscripcionLabel_clienteIdCliente}" for="clienteIdCliente" />
@@ -24,7 +24,7 @@
                             <f:selectItems value="#{clienteController.itemsAvailableSelectOne}"
                                            var="clienteIdClienteItem"
                                            itemValue="#{clienteIdClienteItem}"
-                                           itemLabel="#{clienteIdClienteItem.nombres}"/>
+                                           itemLabel="#{clienteIdClienteItem.nombres} #{clienteIdClienteItem.apellidos}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{suscripcionController.create}" value="#{bundle.Save}" update="display,:SuscripcionListForm:datalist,:growl" oncomplete="handleSubmit(args,'SuscripcionCreateDialog');"/>

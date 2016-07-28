@@ -43,7 +43,7 @@ public class UsuarioController implements Serializable {
             u = ejbFacade.validarLogin(selected.getNombreUsuario(), selected.getClave());
             if (u != null) {
                 ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-                context.redirect(context.getRequestContextPath() + "/faces/template.xhtml");
+                context.redirect(context.getRequestContextPath() + "/faces/home.xhtml");
             }
         } catch (Exception e) {
 

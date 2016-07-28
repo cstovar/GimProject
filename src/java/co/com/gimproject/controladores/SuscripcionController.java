@@ -4,11 +4,12 @@ import co.com.gimproject.modelos.Suscripcion;
 import co.com.gimproject.controladores.util.JsfUtil;
 import co.com.gimproject.controladores.util.JsfUtil.PersistAction;
 import co.com.gimproject.operaciones.SuscripcionFacade;
+import com.sun.javafx.fxml.expression.Expression;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -31,9 +32,12 @@ public class SuscripcionController implements Serializable {
     @EJB
     private co.com.gimproject.operaciones.SuscripcionFacade ejbFacade;
     private List<Suscripcion> items = null;
+    private List<Suscripcion> things = null;
     private Suscripcion selected;
+    private Suscripcion seleccionado;
     private Date fechainicio;
     private Date fechafin;
+    private long diasrestantes;
 
     public Date getFechaActual() {
         try {
@@ -82,6 +86,28 @@ public class SuscripcionController implements Serializable {
         return null;
     }
 
+    public String getDiasRestantes() {
+        try {
+           final long milisegundospordia = 86400000;
+        Date hoy = new Date();
+        Calendar calendario = Calendar.getInstance();
+        calendario.clear(); ///// eeeeeeerroooooooooooooooor
+        
+        int año = calendario.get(Calendar.YEAR);
+        int mes = calendario.get(Calendar.MONTH -1);
+        int dia = calendario.get(Calendar.DAY_OF_YEAR);
+        
+        Calendar calendariofin = new GregorianCalendar(año, mes, dia);
+        Date fecha = new Date (calendariofin.getTimeInMillis());
+        
+        diasrestantes = (hoy.getTime() - fecha.getTime())/milisegundospordia;
+        
+        return "quedan" + diasrestantes;  
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
     public SuscripcionController() {
     }
 
@@ -113,6 +139,7 @@ public class SuscripcionController implements Serializable {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("SuscripcionCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
+            things = null;   // Invalidate list of thing to trigger re-query.
         }
     }
 
@@ -133,6 +160,13 @@ public class SuscripcionController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+
+    public List<Suscripcion> getThingsByFechaFin() {
+        if (things == null) {
+            things = getFacade().findByFechaFin();
+        }
+        return things;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
@@ -189,6 +223,14 @@ public class SuscripcionController implements Serializable {
 
     public void setFechainicio(Date fechainicio) {
         this.fechainicio = fechainicio;
+    }
+
+    public Suscripcion getSeleccionado() {
+        return seleccionado;
+    }
+
+    public void setSeleccionado(Suscripcion seleccionado) {
+        this.seleccionado = seleccionado;
     }
 
     @FacesConverter(forClass = Suscripcion.class)

@@ -28,8 +28,6 @@
                         <h:outputText value="#{clienteController.selected.direccion}" title="#{bundle.ViewClienteTitle_direccion}"/>
                         <h:outputText value="#{bundle.ViewClienteLabel_telefono}"/>
                         <h:outputText value="#{clienteController.selected.telefono}" title="#{bundle.ViewClienteTitle_telefono}"/>
-                        <h:outputText value="#{bundle.ViewClienteLabel_estado}"/>
-                        <p:selectBooleanCheckbox value="#{clienteController.selected.estado}" disabled="true"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="ClienteViewDialog.hide()"/>
                 </h:panelGroup>

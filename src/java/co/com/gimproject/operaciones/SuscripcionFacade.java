@@ -37,7 +37,7 @@ public class SuscripcionFacade extends AbstractFacade<Suscripcion> {
            ahora = new Date();
            fecha=Calendar.getInstance();
            fecha.setTime(ahora);
-           fecha.add(Calendar.DAY_OF_YEAR, 2);
+           fecha.add(Calendar.DAY_OF_YEAR, 3);
            dosdias = fecha.getTime();
         return em.createQuery("SELECT s from Suscripcion s where s.fechaFin BETWEEN CURRENT_DATE and ?1").setParameter(1, dosdias).getResultList();  
         } catch (Exception e) {

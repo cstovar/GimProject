@@ -28,14 +28,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_nombres}"/>
                             </f:facet>
-                            <h:outputText value="#{thing.clienteIdCliente.nombres}"/>
-                        </p:column>
-                        
-                         <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClienteTitle_apellidos}"/>
-                            </f:facet>
-                             <h:outputText value="#{thing.clienteIdCliente.apellidos}"/>
+                            <h:outputText value="#{thing.clienteIdCliente.nombres} #{thing.clienteIdCliente.apellidos}"/>
                         </p:column>
                         
                         <p:column>

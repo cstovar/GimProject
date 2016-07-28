@@ -145,6 +145,7 @@ public class SuscripcionController implements Serializable {
 
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("SuscripcionUpdated"));
+        things = null;
     }
 
     public void destroy() {
@@ -152,6 +153,7 @@ public class SuscripcionController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
+            things = null;
         }
     }
 

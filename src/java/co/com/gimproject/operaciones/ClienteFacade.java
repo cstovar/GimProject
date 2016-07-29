@@ -6,6 +6,7 @@
 package co.com.gimproject.operaciones;
 
 import co.com.gimproject.modelos.Cliente;
+import co.com.gimproject.modelos.Suscripcion;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,6 +20,7 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
 
     @PersistenceContext(unitName = "GimProjectPU")
     private EntityManager em;
+    private SuscripcionFacade suscripcionem;
 
     @Override
     protected EntityManager getEntityManager() {
@@ -28,6 +30,18 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
     public ClienteFacade() {
         super(Cliente.class);
     }
-    
-    
+
+    public boolean crearClienteSuscripcion (Cliente cliente, Suscripcion suscripcion) {
+        try {
+            em.persist(cliente);
+            em.getTransaction().commit();
+            suscripcion.setClienteIdCliente(cliente);
+            em.merge(suscripcion);
+            return true;
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return false;
+    }
+
 }

@@ -23,7 +23,8 @@
         <p:layout fullPage="true">
             <p:layoutUnit position="north" size="65" header="#{bundle.AppName}">
                 <h:form>
-                    <p:commandLink value="Cerrar Sesion" actionListener="#{usuarioController.cerrarSesion()}"/>  
+                    <p:commandLink value="Cerrar Sesion" actionListener="#{usuarioController.cerrarSesion()}"/>
+                     <!-- <p:clock/> -->
                 </h:form>
                 <h:form id="menuForm">
                     <p:menubar>
@@ -44,7 +45,7 @@
             <p:layoutUnit position="center">
                 <ui:insert name="body"/>
             </p:layoutUnit>
-
+       
         </p:layout>
 
     </h:body>

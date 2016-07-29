@@ -41,7 +41,6 @@ public class SuscripcionFacade extends AbstractFacade<Suscripcion> {
            dosdias = fecha.getTime();
         return em.createQuery("SELECT s from Suscripcion s where s.fechaFin BETWEEN CURRENT_DATE and ?1").setParameter(1, dosdias).getResultList();  
         } catch (Exception e) {
-            e.getMessage();
         }
        return null;
     }

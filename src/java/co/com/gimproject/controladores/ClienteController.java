@@ -3,9 +3,11 @@ package co.com.gimproject.controladores;
 import co.com.gimproject.modelos.Cliente;
 import co.com.gimproject.controladores.util.JsfUtil;
 import co.com.gimproject.controladores.util.JsfUtil.PersistAction;
+import co.com.gimproject.modelos.Suscripcion;
 import co.com.gimproject.operaciones.ClienteFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import java.util.List;
 import java.util.ResourceBundle;
@@ -30,10 +32,12 @@ public class ClienteController implements Serializable {
     private co.com.gimproject.operaciones.ClienteFacade ejbFacade;
     private List<Cliente> items = null;
     private Cliente selected;
-    
+    private Suscripcion nuevasuscripcion;
+    private Date fechainicio;
+
     public ClienteController() {
     }
-    
+
     public Cliente getSelected() {
         return selected;
     }
@@ -42,6 +46,28 @@ public class ClienteController implements Serializable {
         this.selected = selected;
     }
 
+    public Date getFechaActual() {
+        try {
+            nuevasuscripcion = new Suscripcion();
+            Date ahora = new Date();
+            fechainicio = ahora;
+            nuevasuscripcion.setFechaInicio(fechainicio);
+            return ahora;
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return null;
+    }
+    
+    public void crear (){
+      boolean si = ejbFacade.crearClienteSuscripcion(selected, nuevasuscripcion);
+        if (si) {
+            ResourceBundle.getBundle("/Bundle").getString("ClienteCreated");
+            items = null; // invalidate list of items to trigger re-query
+        }
+        ResourceBundle.getBundle("/Bundle").getString("ClienteNotCreated");
+    }
+    
     protected void setEmbeddableKeys() {
     }
 
@@ -122,6 +148,14 @@ public class ClienteController implements Serializable {
 
     public List<Cliente> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public Suscripcion getNuevasuscripcion() {
+        return nuevasuscripcion;
+    }
+
+    public void setNuevasuscripcion(Suscripcion nuevasuscripcion) {
+        this.nuevasuscripcion = nuevasuscripcion;
     }
 
     @FacesConverter(forClass = Cliente.class)

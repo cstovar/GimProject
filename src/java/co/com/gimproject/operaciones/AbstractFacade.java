@@ -8,10 +8,6 @@ package co.com.gimproject.operaciones;
 import java.util.List;
 import javax.persistence.EntityManager;
 
-/**
- *
- * @author cristian.tovar
- */
 public abstract class AbstractFacade<T> {
 
     private Class<T> entityClass;

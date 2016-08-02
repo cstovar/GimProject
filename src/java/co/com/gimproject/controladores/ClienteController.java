@@ -7,12 +7,14 @@ import co.com.gimproject.modelos.Suscripcion;
 import co.com.gimproject.operaciones.ClienteFacade;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
@@ -32,6 +34,7 @@ public class ClienteController implements Serializable {
     private co.com.gimproject.operaciones.ClienteFacade ejbFacade;
     private List<Cliente> items = null;
     private Cliente selected;
+    private SuscripcionController suscripcionselected;
     private Suscripcion nuevasuscripcion;
     private Date fechainicio;
 
@@ -58,12 +61,51 @@ public class ClienteController implements Serializable {
         }
         return null;
     }
-    
+
+   
+     public void fechaFinal() {
+        Date fechafin = new Date();
+         try {
+            
+            String termino=selected.getTerminoSuscripcion();
+            Calendar calendario = Calendar.getInstance();
+            calendario.setTime(nuevasuscripcion.getFechaInicio());
+            //SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
+            if (termino != null) {
+                switch (termino) {
+                    case "Un Mes":
+                        calendario.add(Calendar.MONTH, 1);
+                        fechafin = calendario.getTime();
+                        break;
+                    case "Dos Meses":
+                        calendario.add(Calendar.MONTH, 2);
+                        fechafin = calendario.getTime();
+                        break;
+                    case "Tres Meses":
+                        calendario.add(Calendar.MONTH, 3);
+                        fechafin = calendario.getTime();
+                        break;
+                    case "Seis Meses":
+                        calendario.add(Calendar.MONTH, 6);
+                        fechafin = calendario.getTime();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            nuevasuscripcion.setFechaFin(fechafin);
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    }
     public void crear (){
+        
       boolean si = ejbFacade.crearClienteSuscripcion(selected, nuevasuscripcion);
         if (si) {
+            
             ResourceBundle.getBundle("/Bundle").getString("ClienteCreated");
             items = null; // invalidate list of items to trigger re-query
+            //suscripcionselected.recargarLista();
         }
         ResourceBundle.getBundle("/Bundle").getString("ClienteNotCreated");
     }

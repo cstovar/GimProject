@@ -52,39 +52,7 @@ public class SuscripcionController implements Serializable {
         return null;
     }
 
-    public Date getFechaFinal(String termino, Date fechainicio) {
-        try {
-            Calendar calendario = Calendar.getInstance();
-            calendario.setTime(fechainicio);
-            //SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
-            if (termino != null) {
-                switch (termino) {
-                    case "Un Mes":
-                        calendario.add(Calendar.MONTH, 1);
-                        fechafin = calendario.getTime();
-                        break;
-                    case "Dos Meses":
-                        calendario.add(Calendar.MONTH, 2);
-                        fechafin = calendario.getTime();
-                        break;
-                    case "Tres Meses":
-                        calendario.add(Calendar.MONTH, 3);
-                        fechafin = calendario.getTime();
-                        break;
-                    case "Seis Meses":
-                        calendario.add(Calendar.MONTH, 6);
-                        fechafin = calendario.getTime();
-                        break;
-                    default:
-                        break;
-                }
-            }
-            selected.setFechaFin(fechafin);
-            return fechafin;
-        } catch (Exception e) {
-        }
-        return null;
-    }
+   
 
     public String getDiasRestantes() {
         try {
@@ -169,6 +137,10 @@ public class SuscripcionController implements Serializable {
             things = getFacade().findByFechaFin();
         }
         return things;
+    }
+    
+    public void recargarLista(){
+    things = null;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

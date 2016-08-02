@@ -33,8 +33,9 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
 
     public boolean crearClienteSuscripcion (Cliente cliente, Suscripcion suscripcion) {
         try {
-            em.persist(cliente);
-            em.getTransaction().commit();
+            em.merge(cliente); 
+            int id = (int) em.createQuery("SELECT c.idCliente FROM Cliente c WHERE c.identificacion=:identificacion").setParameter("identificacion", cliente.getIdentificacion()).getSingleResult();
+            cliente.setIdCliente(id);
             suscripcion.setClienteIdCliente(cliente);
             em.merge(suscripcion);
             return true;

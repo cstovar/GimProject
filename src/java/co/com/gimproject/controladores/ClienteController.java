@@ -7,6 +7,7 @@ import co.com.gimproject.modelos.Suscripcion;
 import co.com.gimproject.operaciones.ClienteFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -14,16 +15,18 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.validator.ValidatorException;
+import org.primefaces.model.UploadedFile;
 
 @Named("clienteController")
 @SessionScoped
@@ -37,6 +40,7 @@ public class ClienteController implements Serializable {
     private SuscripcionController suscripcionselected;
     private Suscripcion nuevasuscripcion;
     private Date fechainicio;
+    private UploadedFile foto;
 
     public ClienteController() {
     }
@@ -108,6 +112,21 @@ public class ClienteController implements Serializable {
             //suscripcionselected.recargarLista();
         }
         ResourceBundle.getBundle("/Bundle").getString("ClienteNotCreated");
+    }
+    
+        public void validarFoto(FacesContext ctx,UIComponent comp, Object value) {
+        List<FacesMessage> msgs = new ArrayList<FacesMessage>();
+        UploadedFile foto = (UploadedFile)value;
+        int fileByte = foto.getContents().length;
+        if(fileByte > 15360){
+            msgs.add(new FacesMessage("Imagen demasiado grande, maximo 15Kb"));
+        }
+        if (!(foto.getContentType().startsWith("image"))) {
+            msgs.add(new FacesMessage("not an Image file"));
+        }
+        if (!msgs.isEmpty()) {
+            throw new ValidatorException(msgs);
+        }
     }
     
     protected void setEmbeddableKeys() {

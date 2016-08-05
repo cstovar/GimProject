@@ -30,13 +30,13 @@
         <![endif]-->
         <title><ui:insert name="title">Default Title</ui:insert></title>
 
-        <h:outputStylesheet library="css" name="jsfcrud.css"/>
-        <h:outputScript  library="js"  name="jsfcrud.js"/>
+        <h:outputStylesheet  name="css/jsfcrud.css"/>
+        <h:outputScript   name="js/jsfcrud.js"/>
         <f:metadata>
             <f:event type="preRenderView" listener="#{usuarioController.validarSesion()}"></f:event>
         </f:metadata>  
         <script src="../../resources/js/patrondelenguaje.js"></script>
-
+        
     </h:head>
 
     <h:body>
@@ -82,7 +82,7 @@
         </div>
         <!-- LOGO HEADER END-->
 
-      <section class="menu-section">
+        <section class="menu-section">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">

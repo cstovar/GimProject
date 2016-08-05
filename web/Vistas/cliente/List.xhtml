@@ -69,12 +69,12 @@
                             </f:facet>
                             <h:outputText value="#{item.telefono}"/>
                         </p:column>
-                        <p:column>
+                       <!-- <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_estado}"/>
                             </f:facet>
                             <p:selectBooleanCheckbox value="#{item.estado}" disabled="true"/>
-                        </p:column>
+                        </p:column> -->
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{clienteController.prepareCreate}" update=":ClienteCreateForm" oncomplete="PF('ClienteCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ClienteViewForm" oncomplete="PF('ClienteViewDialog').show()" disabled="#{empty clienteController.selected}"/>

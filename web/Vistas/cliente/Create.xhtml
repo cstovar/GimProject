@@ -11,19 +11,16 @@
         <p:dialog id="ClienteCreateDlg" widgetVar="ClienteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateClienteTitle}">
             <h:form id="ClienteCreateForm">
                 <input type="hidden" value="#{clienteController.fechaActual}"></input>
-                <!--<input type="hidden" value="#{clienteController.fechaFinal}"></input>-->
                 <h:panelGroup id="display" >
                     <p:fieldset legend="Datos del Cliente">
                         <h:panelGrid columns="2" rendered="#{clienteController.selected != null}">
-
-                            <p:outputLabel value="#{bundle.CreateClienteLabel_foto}" for="foto" />
-                            <p:fileUpload id="foto" validator="#{clienteController.validarFoto}" multiple="false" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  value="#{clienteController.selected.foto}" required="true" mode="simple"/>
-                          <!--  <p:inputTextarea rows="4" cols="30" id="foto" value="#{clienteController.selected.foto}" title="#{bundle.CreateClienteTitle_foto}" /> -->
+                            <p:outputLabel value="#{bundle.CreateClienteLabel_foto}" for="foto" /> 
+                             <!--<p:fileUpload id="foto" validator="#{clienteController.validarFoto}" multiple="false" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  value="#{clienteController.selected.foto}" required="true" mode="simple"/>-->
+                            <p:inputTextarea rows="4" cols="30" id="foto" value="#{clienteController.selected.foto}" title="#{bundle.CreateClienteTitle_foto}" />
                             <p:outputLabel value="#{bundle.CreateClienteLabel_nombres}" for="nombres" />
                             <p:inputText id="nombres" value="#{clienteController.selected.nombres}" title="#{bundle.CreateClienteTitle_nombres}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_nombres}"/>
                             <p:outputLabel value="#{bundle.CreateClienteLabel_apellidos}" for="apellidos" />
                             <p:inputText id="apellidos" value="#{clienteController.selected.apellidos}" title="#{bundle.CreateClienteTitle_apellidos}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_apellidos}"/>
-
                             <p:outputLabel value="#{bundle.CreateClienteLabel_terminoSuscripcion}" for="terminoSuscripcion" />
                             <p:selectOneMenu id="terminoSuscripcion" value="#{clienteController.selected.terminoSuscripcion}" required="true" requiredMessage="#{bundle.EditSuscripcionRequiredMessage_clienteIdCliente}">
                                 <p:ajax listener="#{clienteController.fechaFinal}" update="fechaFin" />
@@ -33,14 +30,12 @@
                                 <f:selectItem itemLabel="Tres Meses" itemValue="Tres Meses" />
                                 <f:selectItem itemLabel="Seis Meses" itemValue="Seis Meses" />
                             </p:selectOneMenu>
-
                             <p:outputLabel value="#{bundle.CreateClienteLabel_identificacion}" for="identificacion" />
                             <p:inputText id="identificacion" value="#{clienteController.selected.identificacion}" title="#{bundle.CreateClienteTitle_identificacion}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_identificacion}"/>
                             <p:outputLabel value="#{bundle.CreateClienteLabel_direccion}" for="direccion" />
                             <p:inputText id="direccion" value="#{clienteController.selected.direccion}" title="#{bundle.CreateClienteTitle_direccion}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_direccion}"/>
                             <p:outputLabel value="#{bundle.CreateClienteLabel_telefono}" for="telefono" />
                             <p:inputText id="telefono" value="#{clienteController.selected.telefono}" title="#{bundle.CreateClienteTitle_telefono}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_telefono}"/>
-
                         </h:panelGrid> 
                     </p:fieldset>
 

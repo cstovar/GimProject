@@ -12,16 +12,16 @@
 
             <h:form id="UsuarioCreateForm">
                 <h:panelGroup id="display">
-                    <p:fieldset legend="Datos del Cliente">
-                        <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
-                            <p:outputLabel value="#{bundle.CreateUsuarioLabel_nombreUsuario}" for="nombreUsuario" />
-                            <p:inputText id="nombreUsuario" value="#{usuarioController.selected.nombreUsuario}" title="#{bundle.CreateUsuarioTitle_nombreUsuario}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nombreUsuario}"/>
-                            <p:outputLabel value="#{bundle.CreateUsuarioLabel_clave}" for="clave" />
-                            <p:inputText id="clave" value="#{usuarioController.selected.clave}" title="#{bundle.CreateUsuarioTitle_clave}" />
-                            <p:outputLabel value="#{bundle.CreateUsuarioLabel_estado}" for="estado" />
-                            <p:selectBooleanCheckbox id="estado" value="#{usuarioController.selected.estado}" />
-                        </p:panelGrid>
-                    </p:fieldset>
+
+                    <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_nombreUsuario}" for="nombreUsuario" />
+                        <p:inputText id="nombreUsuario" value="#{usuarioController.selected.nombreUsuario}" title="#{bundle.CreateUsuarioTitle_nombreUsuario}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nombreUsuario}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_clave}" for="clave" />
+                        <p:inputText id="clave" value="#{usuarioController.selected.clave}" title="#{bundle.CreateUsuarioTitle_clave}" />
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_estado}" for="estado" />
+                        <p:selectBooleanCheckbox id="estado" value="#{usuarioController.selected.estado}" />
+                    </p:panelGrid>
+
                     <p:commandButton actionListener="#{usuarioController.create}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioCreateDialog.hide()"/>
                 </h:panelGroup>

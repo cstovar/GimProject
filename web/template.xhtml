@@ -7,49 +7,131 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <!--[if IE]>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+            <![endif]-->
+        <title>Free Responsive Admin Theme - ZONTAL</title>
+        <!-- BOOTSTRAP CORE STYLE  -->
+        <h:outputStylesheet name="assets/css/bootstrap.css"/>
+        <!-- FONT AWESOME ICONS  -->
+        <h:outputStylesheet name="assets/css/font-awesome.css"/>
+        <!-- CUSTOM STYLE  -->
+        <h:outputStylesheet name="assets/css/style.css"/>
+        <!-- HTML5 Shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
         <title><ui:insert name="title">Default Title</ui:insert></title>
+
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
-        <h:outputScript library="js" name="jsfcrud.js"/>
+        <h:outputScript  library="js"  name="jsfcrud.js"/>
         <f:metadata>
             <f:event type="preRenderView" listener="#{usuarioController.validarSesion()}"></f:event>
         </f:metadata>  
         <script src="../../resources/js/patrondelenguaje.js"></script>
+
     </h:head>
 
     <h:body>
 
         <p:growl id="growl" life="3000" />
 
-        <p:layout fullPage="true">
-            <p:layoutUnit position="north" size="65" header="#{bundle.AppName}">
-                <h:form>
-                    <p:commandLink value="Cerrar Sesion" actionListener="#{usuarioController.cerrarSesion()}"/>
-                     <!-- <p:clock/> -->
-                </h:form>
-                <h:form id="menuForm">
-                    <p:menubar>
-                        <p:menuitem value="#{bundle.Home}" outcome="/home" icon="ui-icon-home"/> 
-                        <p:submenu label="#{bundle.Maintenance}">
-                            <p:menuitem value="Cliente" outcome="/Vistas/cliente/List.xhtml" />
-                            <p:menuitem value="Suscripcion" outcome="/Vistas/suscripcion/List.xhtml" />
-                            <p:menuitem value="Usuario" outcome="/Vistas/usuario/List.xhtml" />
-                        </p:submenu>
-                    </p:menubar>                 
-                </h:form>
-            </p:layoutUnit>
+        <header>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>Email: </strong>regimpequipo@outlook.com
+                        &nbsp;&nbsp;
+                        <strong>Support: </strong>312 666 0674
+                    </div>
 
-            <p:layoutUnit position="south" size="60">
-                <ui:insert name="footer"/>
-            </p:layoutUnit>
+                </div>
+            </div>
+        </header>
+        <!-- HEADER END-->
 
-            <p:layoutUnit position="center">
-                
-                <ui:insert name="body">
-                </ui:insert>
-            </p:layoutUnit>
-       
+        <div class="navbar navbar-inverse set-radius-zero">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">
+
+
+                    </a>
+
+                </div>
+
+                <div class="left-div">
+                    <div class="user-settings-wrapper">
+                        <ul class="nav">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- LOGO HEADER END-->
+
+      <section class="menu-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="navbar-collapse collapse ">
+                            <ul id="menu-top" class="nav navbar-nav navbar-right">
+                                <li><a href="../../Vistas/cliente/home.xhtml">Pagina Principal</a></li>
+                                <li><a href="../../Vistas/cliente/List.xhtml">Clientes</a></li>
+                                <li><a href="../../Vistas/suscripcion/List.xhtml">Suscripciones</a></li>
+                                <li><a href="../../Vistas/usuario/List.xhtml">Usuarios</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section> 
+        <!-- MENU SECTION END-->
+
+
+        <p:layout fullPage="false">
+
+            <div class="content-wrapper">
+                <div>
+                    <p:layoutUnit position="center" >
+                        <ui:insert name="body"/>
+                    </p:layoutUnit>
+                </div>
+            </div>
+            <!-- CONTENT-WRAPPER SECTION END-->
+
         </p:layout>
 
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        &copy; 2015 YourCompany | By : <a href="http://www.designbootstrap.com/" target="_blank">DesignBootstrap</a>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+
+        <!-- FOOTER SECTION END-->
+        <!-- JAVASCRIPT AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
+        <!-- CORE JQUERY SCRIPTS -->
+        <h:outputScript rendered="assets/js/jquery-1.11.1.js"/>
+        <!-- BOOTSTRAP SCRIPTS  -->
+        <h:outputScript name="assets/js/bootstrap.js"/>
     </h:body>
 
 </html>

@@ -45,9 +45,14 @@ public class Usuario implements Serializable {
     @Size(min = 1, max = 15)
     @Column(name = "Nombre_Usuario")
     private String nombreUsuario;
+    @NotNull
     @Size(max = 31)
     @Column(name = "Clave")
     private String clave;
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "correo")
+    private String correo;
     @Column(name = "Estado")
     private Boolean estado;
 
@@ -118,6 +123,14 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "co.com.gimproject.modelos.Usuario[ idUsuario=" + idUsuario + " ]";
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
     
 }

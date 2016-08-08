@@ -79,7 +79,7 @@
                                     <p:growl id="growl" autoUpdate="true"  showDetail="true"/>
                                     <p:inputText class="form-control" value="#{usuarioController.selected.nombreUsuario}" id="nombreUsuario"  title="#{bundle.CreateUsuarioLabel_nombreUsuario}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nombreUsuario}" placeholder="&#128272; Ingrese su Usuario"/> 
                                     <bR></bR>
-                                    <p:password  class="form-control" value="#{usuarioController.selected.clave}" id="clave" title="#{bundle.CreateUsuarioLabel_clave}" required="true" requiredMessage="El campo Clave es obligatorio" placeholder="&#128272; Ingrese su Contraseña"/> <h:link>olvido su contraseña?</h:link>
+                                    <p:password  class="form-control" value="#{usuarioController.claveencriptada}" id="clave" title="#{bundle.CreateUsuarioLabel_clave}" required="true" requiredMessage="El campo Clave es obligatorio" placeholder="&#128272; Ingrese su Contraseña"/> <h:link>olvido su contraseña?</h:link>
                                     <hr />
                                     <p:commandButton styleClass="btn btn-info" value="ingresar" actionListener="#{usuarioController.login()}"/><span class="fa fa-user" style="margin-left: -100px;"></span>
                             

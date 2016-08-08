@@ -17,7 +17,7 @@
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_nombreUsuario}" for="nombreUsuario" />
                         <p:inputText id="nombreUsuario" value="#{usuarioController.selected.nombreUsuario}" title="#{bundle.EditUsuarioTitle_nombreUsuario}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_nombreUsuario}"/>
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_clave}" for="clave" />
-                        <p:inputText id="clave" value="#{usuarioController.selected.clave}" title="#{bundle.EditUsuarioTitle_clave}" />
+                        <p:password id="clave" value="#{usuarioController.claveencriptada}" title="#{bundle.EditUsuarioTitle_clave}"/>
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_estado}" for="estado" />
                         <p:selectBooleanCheckbox id="estado" value="#{usuarioController.selected.estado}" />
                     </p:panelGrid>

@@ -23,7 +23,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.servlet.http.HttpSession;
-import org.w3c.dom.Node;
+import Encripcion.Encriptar;
 
 @Named("usuarioController")
 @SessionScoped
@@ -34,12 +34,15 @@ public class UsuarioController implements Serializable {
     private List<Usuario> items = null;
     private Usuario selected = new Usuario();
     private Usuario u = new Usuario();
+    private String claveencriptada;
 
     public UsuarioController() {
     }
 
     public String login() {
         try {
+            selected.setClave(Encriptar.encriptaEnMD5(claveencriptada));
+            claveencriptada = null;
             u = ejbFacade.validarLogin(selected.getNombreUsuario(), selected.getClave());
             if (u != null) {
                 ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
@@ -51,25 +54,38 @@ public class UsuarioController implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡ERROR!", "El usuario o la contraseña no coinciden con ninguna cuenta"));
         return null;
     }
-    
+
     public void validarSesion() {
         if (u.getNombreUsuario() == null) {
             try {
                 ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
                 context.redirect(context.getRequestContextPath() + "/faces/Login.xhtml");
-
             } catch (IOException ex) {
                 Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
-    
-        public void cerrarSesion() {
+
+    public void cerrarSesion() {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
         Object session = externalContext.getSession(false);
         HttpSession httpSession = (HttpSession) session;
         httpSession.invalidate();
+        u.setNombreUsuario(null);
+    }
+    
+        public void recibirUsuario() {
+        try {
+            int usu = ejbFacade.cambioContrasena(selected.getNombreUsuario());
+            if (usu == 0) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡ERROR!", "El usuario o la contraseña no coinciden con ninguna cuenta"));
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Actualizado!", "Su contraseña ha sido cambiada"));
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
     }
 
     public Usuario getSelected() {
@@ -104,6 +120,7 @@ public class UsuarioController implements Serializable {
     }
 
     public void update() {
+        selected.setClave(Encriptar.encriptaEnMD5(claveencriptada));
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));
     }
 
@@ -160,6 +177,14 @@ public class UsuarioController implements Serializable {
 
     public List<Usuario> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public String getClaveencriptada() {
+        return claveencriptada;
+    }
+
+    public void setClaveencriptada(String claveencriptada) {
+        this.claveencriptada = claveencriptada;
     }
 
     @FacesConverter(forClass = Usuario.class)

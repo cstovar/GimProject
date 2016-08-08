@@ -219,6 +219,14 @@ public class ClienteController implements Serializable {
         this.nuevasuscripcion = nuevasuscripcion;
     }
 
+    public UploadedFile getFoto() {
+        return foto;
+    }
+
+    public void setFoto(UploadedFile foto) {
+        this.foto = foto;
+    }
+
     @FacesConverter(forClass = Cliente.class)
     public static class ClienteControllerConverter implements Converter {
 

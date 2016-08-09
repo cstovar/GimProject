@@ -113,6 +113,7 @@ public class UsuarioController implements Serializable {
     }
 
     public void create() {
+        selected.setClave(Encriptar.encriptaEnMD5(claveencriptada));
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.

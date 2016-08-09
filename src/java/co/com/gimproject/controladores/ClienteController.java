@@ -66,12 +66,11 @@ public class ClienteController implements Serializable {
         return null;
     }
 
-   
-     public void fechaFinal() {
+    public void fechaFinal() {
         Date fechafin = new Date();
-         try {
-            
-            String termino=selected.getTerminoSuscripcion();
+        try {
+
+            String termino = selected.getTerminoSuscripcion();
             Calendar calendario = Calendar.getInstance();
             calendario.setTime(nuevasuscripcion.getFechaInicio());
             //SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
@@ -102,23 +101,24 @@ public class ClienteController implements Serializable {
             e.getMessage();
         }
     }
-    public void crear (){
-        
-      boolean si = ejbFacade.crearClienteSuscripcion(selected, nuevasuscripcion);
+
+    public void crear() {
+        System.out.println("Entro");
+        selected.setFoto(foto.getContents());
+        boolean si = ejbFacade.crearClienteSuscripcion(selected, nuevasuscripcion);
         if (si) {
-            
+
             ResourceBundle.getBundle("/Bundle").getString("ClienteCreated");
             items = null; // invalidate list of items to trigger re-query
-            //suscripcionselected.recargarLista();
         }
         ResourceBundle.getBundle("/Bundle").getString("ClienteNotCreated");
     }
-    
-        public void validarFoto(FacesContext ctx,UIComponent comp, Object value) {
+
+    public void validarFoto(Object value) {
         List<FacesMessage> msgs = new ArrayList<FacesMessage>();
-        UploadedFile foto = (UploadedFile)value;
+        foto = (UploadedFile) value;
         int fileByte = foto.getContents().length;
-        if(fileByte > 15360){
+        if (fileByte > 15360) {
             msgs.add(new FacesMessage("Imagen demasiado grande, maximo 15Kb"));
         }
         if (!(foto.getContentType().startsWith("image"))) {
@@ -128,7 +128,7 @@ public class ClienteController implements Serializable {
             throw new ValidatorException(msgs);
         }
     }
-    
+
     protected void setEmbeddableKeys() {
     }
 

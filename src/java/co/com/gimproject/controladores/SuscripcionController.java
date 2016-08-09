@@ -3,6 +3,7 @@ package co.com.gimproject.controladores;
 import co.com.gimproject.modelos.Suscripcion;
 import co.com.gimproject.controladores.util.JsfUtil;
 import co.com.gimproject.controladores.util.JsfUtil.PersistAction;
+import co.com.gimproject.modelos.Cliente_;
 import co.com.gimproject.operaciones.SuscripcionFacade;
 import com.sun.javafx.fxml.expression.Expression;
 
@@ -38,6 +39,7 @@ public class SuscripcionController implements Serializable {
     private Date fechainicio;
     private Date fechafin;
     private long diasrestantes;
+    private String terminosuscripcion;
 
     public Date getFechaActual() {
         try {
@@ -52,7 +54,40 @@ public class SuscripcionController implements Serializable {
         return null;
     }
 
-   
+   public void fechaFinal() {
+        fechafin = new Date();
+        try {
+
+            Calendar calendario = Calendar.getInstance();
+            calendario.setTime(selected.getFechaInicio());
+            //SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
+            if (terminosuscripcion != null) {
+                switch (terminosuscripcion) {
+                    case "Un Mes":
+                        calendario.add(Calendar.MONTH, 1);
+                        fechafin = calendario.getTime();
+                        break;
+                    case "Dos Meses":
+                        calendario.add(Calendar.MONTH, 2);
+                        fechafin = calendario.getTime();
+                        break;
+                    case "Tres Meses":
+                        calendario.add(Calendar.MONTH, 3);
+                        fechafin = calendario.getTime();
+                        break;
+                    case "Seis Meses":
+                        calendario.add(Calendar.MONTH, 6);
+                        fechafin = calendario.getTime();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            selected.setFechaFin(fechafin);
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    }   
 
     public String getDiasRestantes() {
         try {
@@ -205,6 +240,14 @@ public class SuscripcionController implements Serializable {
 
     public void setSeleccionado(Suscripcion seleccionado) {
         this.seleccionado = seleccionado;
+    }
+
+    public String getTerminosuscripcion() {
+        return terminosuscripcion;
+    }
+
+    public void setTerminosuscripcion(String terminosuscripcion) {
+        this.terminosuscripcion = terminosuscripcion;
     }
 
     @FacesConverter(forClass = Suscripcion.class)

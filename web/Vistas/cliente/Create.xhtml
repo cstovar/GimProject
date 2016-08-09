@@ -15,9 +15,7 @@
                     <p:fieldset >
                         <p:panelGrid columns="2" rendered="#{clienteController.selected != null}">
                             <p:outputLabel value="#{bundle.CreateClienteLabel_foto}" for="foto" /> 
-                            <p:fileUpload id="foto" multiple="false" mode="simple" fileUploadListener="#{clienteController.foto}" auto="true" sizeLimit="500000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
-                            <!--<p:inputTextarea rows="4" cols="30" id="foto" value="#{clienteController.selected.foto}" title="#{bundle.CreateClienteTitle_foto}" />-->
-                            
+                            <p:fileUpload id="foto" multiple="false" mode="simple" fileUploadListener="#{clienteController.foto}" auto="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
                             <p:outputLabel value="#{bundle.CreateClienteLabel_nombres}" for="nombres" />
                             <p:inputText id="nombres" value="#{clienteController.selected.nombres}" title="#{bundle.CreateClienteTitle_nombres}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_nombres}"/>
                             <p:outputLabel value="#{bundle.CreateClienteLabel_apellidos}" for="apellidos" />

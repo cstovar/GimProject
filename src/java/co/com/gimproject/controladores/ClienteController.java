@@ -5,6 +5,12 @@ import co.com.gimproject.controladores.util.JsfUtil;
 import co.com.gimproject.controladores.util.JsfUtil.PersistAction;
 import co.com.gimproject.modelos.Suscripcion;
 import co.com.gimproject.operaciones.ClienteFacade;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,6 +32,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.validator.ValidatorException;
+import javax.imageio.ImageIO;
 import org.primefaces.model.UploadedFile;
 
 @Named("clienteController")
@@ -41,6 +48,8 @@ public class ClienteController implements Serializable {
     private Suscripcion nuevasuscripcion;
     private Date fechainicio;
     private UploadedFile foto;
+    BufferedImage resizeImageJpg;
+    InputStream is;
 
     public ClienteController() {
     }
@@ -103,15 +112,23 @@ public class ClienteController implements Serializable {
     }
 
     public void crear() {
-        System.out.println("Entro");
-        selected.setFoto(foto.getContents());
-        boolean si = ejbFacade.crearClienteSuscripcion(selected, nuevasuscripcion);
-        if (si) {
+        
+            boolean si = ejbFacade.crearClienteSuscripcion(selected, nuevasuscripcion);
+            if (si) {
 
-            ResourceBundle.getBundle("/Bundle").getString("ClienteCreated");
-            items = null; // invalidate list of items to trigger re-query
-        }
+                ResourceBundle.getBundle("/Bundle").getString("ClienteCreated");
+                items = null; // invalidate list of items to trigger re-query
+            }
         ResourceBundle.getBundle("/Bundle").getString("ClienteNotCreated");
+    }
+
+    private static BufferedImage resizeImage(BufferedImage originalImage, int type) {
+        BufferedImage resizedImage = new BufferedImage(200, 200, type);//set width and height of image
+        Graphics2D g = resizedImage.createGraphics();
+        g.drawImage(originalImage, 0, 0, 200, 200, null);
+        g.dispose();
+
+        return resizedImage;
     }
 
     public void validarFoto(Object value) {

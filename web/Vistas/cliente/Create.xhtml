@@ -9,7 +9,7 @@
     <ui:composition>
 
         <p:dialog id="ClienteCreateDlg" widgetVar="ClienteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateClienteTitle}">
-            <h:form id="ClienteCreateForm" enctype="multipart/form-data">
+            <h:form id="ClienteCreateForm">
                 <input type="hidden" value="#{clienteController.fechaActual}"></input>
                 <h:panelGroup id="display" >
                     <p:fieldset >
@@ -29,14 +29,16 @@
                         <p:panelGrid columns="2" rendered="#{clienteController.selected != null}">
                             <!--<p:outputLabel value="#{bundle.CreateClienteLabel_foto}" for="foto"/>
                             <p:inputTextarea rows="4" cols="30" id="foto" value="#{clienteController.selected.foto}" title="#{bundle.EditClienteTitle_foto}" />-->
-                            <p:fileUpload id="fileImagenCliente" mode="single" fileUploadListener="#{clienteController.subirImagen}" 
-                                          cancelLabel="Cancelar" 
-                                          uploadLabel="Subir Imagen" 
-                                          label="Elegir" 
-                                          update="graImagenCliente" 
-                                          sizeLimit="512000" 
-                                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
-                            <p:graphicImage id="graImagenCliente" value="#{clienteController.imagenCliente}" width="150" height="120"/>
+                            <h:form enctype="multipart/form-data">
+                                <p:fileUpload value="#{clienteController.imagenCliente}" mode="simple"/>
+
+                                <p:commandButton value="Submit" ajax="false" actionListener="#{clienteController.subirImagen()}" update="graImagenCliente" />
+
+                                <p:graphicImage id="graImagenCliente" value="#{clienteController.imagenCliente}" width="150" height="120"/>
+                            </h:form>
+                            <p:outputLabel value="#{bundle.CreateClienteLabel_foto}" for="foto"/>
+                            <p:inputTextarea rows="4" cols="30" id="foto" value="#{clienteController.selected.foto}" title="#{bundle.EditClienteTitle_foto}" />
+                            
                             <p:outputLabel value="#{bundle.CreateClienteLabel_nombres}" for="nombres" />
                             <p:inputText id="nombres" value="#{clienteController.selected.nombres}" title="#{bundle.CreateClienteTitle_nombres}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_nombres}"/>
                             <p:outputLabel value="#{bundle.CreateClienteLabel_apellidos}" for="apellidos" />
@@ -59,7 +61,7 @@
                         </p:panelGrid> 
                     </p:fieldset>
 
-                    <p:fieldset legend="hhh"> 
+                    <p:fieldset > 
                         <p:panelGrid columns="2"> 
                             <p:outputLabel value="#{bundle.CreateSuscripcionLabel_fechaInicio}" />
                             <p:calendar id="fechaInicio" pattern="yyyy-MM-dd" value="#{clienteController.nuevasuscripcion.fechaInicio}" title="#{bundle.EditSuscripcionTitle_fechaInicio}"  showOn="button" readonlyInput="true" effect="fold" locale="es">

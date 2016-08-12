@@ -39,7 +39,6 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
                 return u;
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
 
         return null;
@@ -63,7 +62,6 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
             return 1;
         }
         } catch (Exception e) {
-            e.getMessage();
         }
         return 0;
     }

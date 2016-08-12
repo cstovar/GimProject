@@ -26,6 +26,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 @Named("clienteController")
 @SessionScoped
@@ -40,7 +41,7 @@ public class ClienteController implements Serializable {
     private Suscripcion nuevasuscripcion;
     private Date fechainicio;
     private String ImagenCliente;
-
+    private UploadedFile imagensubida;
     public ClienteController() {
     }
 
@@ -60,7 +61,6 @@ public class ClienteController implements Serializable {
             nuevasuscripcion.setFechaInicio(fechainicio);
             return ahora;
         } catch (Exception e) {
-            e.getMessage();
         }
         return null;
     }
@@ -72,7 +72,6 @@ public class ClienteController implements Serializable {
             String termino = selected.getTerminoSuscripcion();
             Calendar calendario = Calendar.getInstance();
             calendario.setTime(nuevasuscripcion.getFechaInicio());
-            //SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
             if (termino != null) {
                 switch (termino) {
                     case "Un Mes":
@@ -97,12 +96,11 @@ public class ClienteController implements Serializable {
             }
             nuevasuscripcion.setFechaFin(fechafin);
         } catch (Exception e) {
-            e.getMessage();
         }
     }
 
     public void crear() {
-
+     
         boolean si = ejbFacade.crearClienteSuscripcion(selected, nuevasuscripcion);
         if (si) {
 
@@ -222,6 +220,14 @@ public class ClienteController implements Serializable {
 
     public void setImagenCliente(String ImagenCliente) {
         this.ImagenCliente = ImagenCliente;
+    }
+
+    public UploadedFile getImagensubida() {
+        return imagensubida;
+    }
+
+    public void setImagensubida(UploadedFile imagensubida) {
+        this.imagensubida = imagensubida;
     }
 
     @FacesConverter(forClass = Cliente.class)

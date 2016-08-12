@@ -9,36 +9,33 @@
     <ui:composition>
 
         <p:dialog id="ClienteCreateDlg" widgetVar="ClienteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateClienteTitle}">
-            <h:form id="ClienteCreateForm">
+            <h:form id="ClienteCreateForm" enctype="multipart/form-data">
                 <input type="hidden" value="#{clienteController.fechaActual}"></input>
                 <h:panelGroup id="display" >
-                    <p:fieldset >
+                    <p:fieldset>
 
                         <p:panelGrid columns="3">
-                            <!--<p:outputLabel value="#{bundle.CreateClienteLabel_foto}" for="fileImagenCliente"/>-->
-                           <!-- <p:fileUpload id="fileImagenCliente" mode="single" fileUploadListener="#{clienteController.subirImagen}" 
-                                          cancelLabel="Cancelar" 
+                            <p:outputLabel value="#{bundle.CreateClienteLabel_foto}" for="fileImagenCliente"/>
+                            <p:fileUpload id="fileImagenCliente" value="#{clienteController.imagensubida}" mode="single" fileUploadListener="#{clienteController.subirImagen}" 
+                                          label="Elegir"  
                                           uploadLabel="Subir Imagen" 
-                                          label="Elegir" 
-                                          update="graImagenCliente" 
+                                          cancelLabel="Cancelar" 
+                                          update="ICliente" 
                                           sizeLimit="512000" 
                                           allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
-                            <p:graphicImage id="graImagenCliente" value="#{clienteController.imagenCliente}" width="150" height="120"/>-->
-                        </p:panelGrid>
-                        <br></br>
+                            <p:graphicImage id="ICliente" value="#{clienteController.imagenCliente}" width="150" height="120"/>
+                        </p:panelGrid> 
+                        <br></br> 
                         <p:panelGrid columns="2" rendered="#{clienteController.selected != null}">
                             <!--<p:outputLabel value="#{bundle.CreateClienteLabel_foto}" for="foto"/>
-                            <p:inputTextarea rows="4" cols="30" id="foto" value="#{clienteController.selected.foto}" title="#{bundle.EditClienteTitle_foto}" />-->
-                            <h:form enctype="multipart/form-data">
-                                <p:fileUpload value="#{clienteController.imagenCliente}" mode="simple"/>
+                            <p:inputTextarea rows="4" cols="30" id="foto" value="#{clienteController.selected.foto}" title="#{bundle.EditClienteTitle_foto}" /> -->
 
-                                <p:commandButton value="Submit" ajax="false" actionListener="#{clienteController.subirImagen()}" update="graImagenCliente" />
+                           <!--<p:fileUpload value="#{clienteController.imagenCliente}" mode="simple"/>
 
-                                <p:graphicImage id="graImagenCliente" value="#{clienteController.imagenCliente}" width="150" height="120"/>
-                            </h:form>
-                            <p:outputLabel value="#{bundle.CreateClienteLabel_foto}" for="foto"/>
-                            <p:inputTextarea rows="4" cols="30" id="foto" value="#{clienteController.selected.foto}" title="#{bundle.EditClienteTitle_foto}" />
-                            
+                            <p:commandButton value="Submit" ajax="false" actionListener="#{clienteController.subirImagen}" update="graImagenCliente" />
+
+                            <p:graphicImage id="graImagenCliente" value="#{clienteController.imagenCliente}" width="150" height="120"/>-->
+
                             <p:outputLabel value="#{bundle.CreateClienteLabel_nombres}" for="nombres" />
                             <p:inputText id="nombres" value="#{clienteController.selected.nombres}" title="#{bundle.CreateClienteTitle_nombres}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_nombres}"/>
                             <p:outputLabel value="#{bundle.CreateClienteLabel_apellidos}" for="apellidos" />

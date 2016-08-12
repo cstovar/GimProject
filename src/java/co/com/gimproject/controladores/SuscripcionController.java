@@ -3,9 +3,7 @@ package co.com.gimproject.controladores;
 import co.com.gimproject.modelos.Suscripcion;
 import co.com.gimproject.controladores.util.JsfUtil;
 import co.com.gimproject.controladores.util.JsfUtil.PersistAction;
-import co.com.gimproject.modelos.Cliente_;
 import co.com.gimproject.operaciones.SuscripcionFacade;
-import com.sun.javafx.fxml.expression.Expression;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -49,7 +47,6 @@ public class SuscripcionController implements Serializable {
             selected.setFechaInicio(fechainicio);
             return ahora;
         } catch (Exception e) {
-            e.getStackTrace();
         }
         return null;
     }
@@ -57,10 +54,8 @@ public class SuscripcionController implements Serializable {
    public void fechaFinal() {
         fechafin = new Date();
         try {
-
             Calendar calendario = Calendar.getInstance();
             calendario.setTime(selected.getFechaInicio());
-            //SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
             if (terminosuscripcion != null) {
                 switch (terminosuscripcion) {
                     case "Un Mes":
@@ -85,7 +80,6 @@ public class SuscripcionController implements Serializable {
             }
             selected.setFechaFin(fechafin);
         } catch (Exception e) {
-            e.getMessage();
         }
     }   
 

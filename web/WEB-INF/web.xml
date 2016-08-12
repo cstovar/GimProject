@@ -25,21 +25,19 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
+    
     <filter>
-        <filter-name>Primefaces Upload Filter</filter-name>
+        <filter-name>primeFacesFileUploadFilter</filter-name>
         <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
         <init-param>
             <param-name>thresholdSize</param-name>
             <param-value>512000</param-value>
         </init-param>
-        <init-param>
-            <param-name>uploadDirectory</param-name>
-            <param-value>C:\CT1\ImagenesPrimefaces</param-value>
-        </init-param>
+        
     </filter>
     <filter-mapping>
-        <filter-name>Primefaces Upload Filter</filter-name>
-        <servlet-name>Faces Servlet</servlet-name>
+         <filter-name>primeFacesFileUploadFilter</filter-name>
+    <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
     
     <context-param>

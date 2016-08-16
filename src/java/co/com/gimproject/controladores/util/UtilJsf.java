@@ -14,24 +14,24 @@ public class UtilJsf {
       ServletContext servletcontext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
       String path = servletcontext.getRealPath("") + File.separatorChar + "resources" + File.separatorChar + "img" + File.separatorChar + nombreArchivo;
       
-      File f = null;
-      InputStream in = null;
+      File f;
+      InputStream in;
       
       try {
           f = new File(path);
           in = new ByteArrayInputStream(bytes);
-          FileOutputStream out = new FileOutputStream(f.getAbsolutePath());
-          
+      try (FileOutputStream out = new FileOutputStream(f.getAbsolutePath())) {
           int c = 0;
           
           while ((c = in.read()) >= 0) {              
               out.write(c);
           }
           out.flush();
-          out.close();
+      }
           ubicacionImagen = "../../resources/img/tmp" + nombreArchivo;
       } catch (Exception e) {
           System.err.println("no se pudo cargar la imagen");
+          e.getMessage();
       }
       return ubicacionImagen;
   }  

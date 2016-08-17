@@ -27,12 +27,12 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        <p:column>
+                        <!--<p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_foto}"/>
                             </f:facet>
                             <h:outputText value="#{item.foto}"/>
-                        </p:column>
+                        </p:column>-->
                         <p:column filterBy="#{item.nombres}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_nombres}"/>

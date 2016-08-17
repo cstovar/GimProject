@@ -113,6 +113,7 @@ public class ClienteController implements Serializable {
     public void subirImagen(FileUploadEvent event) {
         FacesMessage mensaje = new FacesMessage();
         try {
+            
             selected.setFoto(event.getFile().getContents());
             ImagenCliente = UtilJsf.guardaBlobEnFicheroTemporal(selected.getFoto(), event.getFile().getFileName());
             mensaje.setSeverity(FacesMessage.SEVERITY_INFO);

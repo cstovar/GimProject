@@ -3,7 +3,6 @@ package co.com.gimproject.controladores;
 import co.com.gimproject.modelos.Suscripcion;
 import co.com.gimproject.controladores.util.JsfUtil;
 import co.com.gimproject.controladores.util.JsfUtil.PersistAction;
-import co.com.gimproject.modelos.Cliente_;
 import co.com.gimproject.operaciones.SuscripcionFacade;
 import com.sun.javafx.fxml.expression.Expression;
 

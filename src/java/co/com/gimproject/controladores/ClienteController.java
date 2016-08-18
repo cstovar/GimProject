@@ -3,17 +3,11 @@ package co.com.gimproject.controladores;
 import co.com.gimproject.modelos.Cliente;
 import co.com.gimproject.controladores.util.JsfUtil;
 import co.com.gimproject.controladores.util.JsfUtil.PersistAction;
+import co.com.gimproject.controladores.util.UtilJsf;
 import co.com.gimproject.modelos.Suscripcion;
 import co.com.gimproject.operaciones.ClienteFacade;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -31,8 +25,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.validator.ValidatorException;
-import javax.imageio.ImageIO;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 @Named("clienteController")
@@ -47,10 +40,8 @@ public class ClienteController implements Serializable {
     private SuscripcionController suscripcionselected;
     private Suscripcion nuevasuscripcion;
     private Date fechainicio;
-    private UploadedFile foto;
-    BufferedImage resizeImageJpg;
-    InputStream is;
-
+    private String ImagenCliente;
+    private UploadedFile imagensubida;
     public ClienteController() {
     }
 
@@ -70,7 +61,6 @@ public class ClienteController implements Serializable {
             nuevasuscripcion.setFechaInicio(fechainicio);
             return ahora;
         } catch (Exception e) {
-            e.getMessage();
         }
         return null;
     }
@@ -82,7 +72,6 @@ public class ClienteController implements Serializable {
             String termino = selected.getTerminoSuscripcion();
             Calendar calendario = Calendar.getInstance();
             calendario.setTime(nuevasuscripcion.getFechaInicio());
-            //SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
             if (termino != null) {
                 switch (termino) {
                     case "Un Mes":
@@ -107,43 +96,33 @@ public class ClienteController implements Serializable {
             }
             nuevasuscripcion.setFechaFin(fechafin);
         } catch (Exception e) {
-            e.getMessage();
         }
     }
 
     public void crear() {
-        
-            boolean si = ejbFacade.crearClienteSuscripcion(selected, nuevasuscripcion);
-            if (si) {
+     
+        boolean si = ejbFacade.crearClienteSuscripcion(selected, nuevasuscripcion);
+        if (si) {
 
-                ResourceBundle.getBundle("/Bundle").getString("ClienteCreated");
-                items = null; // invalidate list of items to trigger re-query
-            }
+            ResourceBundle.getBundle("/Bundle").getString("ClienteCreated");
+            items = null; // invalidate list of items to trigger re-query
+        }
         ResourceBundle.getBundle("/Bundle").getString("ClienteNotCreated");
     }
 
-    private static BufferedImage resizeImage(BufferedImage originalImage, int type) {
-        BufferedImage resizedImage = new BufferedImage(200, 200, type);//set width and height of image
-        Graphics2D g = resizedImage.createGraphics();
-        g.drawImage(originalImage, 0, 0, 200, 200, null);
-        g.dispose();
-
-        return resizedImage;
-    }
-
-    public void validarFoto(Object value) {
-        List<FacesMessage> msgs = new ArrayList<FacesMessage>();
-        foto = (UploadedFile) value;
-        int fileByte = foto.getContents().length;
-        if (fileByte > 15360) {
-            msgs.add(new FacesMessage("Imagen demasiado grande, maximo 15Kb"));
+    public void subirImagen(FileUploadEvent event) {
+        FacesMessage mensaje = new FacesMessage();
+        try {
+            
+            selected.setFoto(event.getFile().getContents());
+            ImagenCliente = UtilJsf.guardaBlobEnFicheroTemporal(selected.getFoto(), event.getFile().getFileName());
+            mensaje.setSeverity(FacesMessage.SEVERITY_INFO);
+            mensaje.setSummary("Registro cargado correctamente");
+        } catch (Exception e) {
+            mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
+            mensaje.setSummary("Problemas al subir la imagen");
         }
-        if (!(foto.getContentType().startsWith("image"))) {
-            msgs.add(new FacesMessage("not an Image file"));
-        }
-        if (!msgs.isEmpty()) {
-            throw new ValidatorException(msgs);
-        }
+        FacesContext.getCurrentInstance().addMessage("Mensaje", mensaje);
     }
 
     protected void setEmbeddableKeys() {
@@ -236,12 +215,20 @@ public class ClienteController implements Serializable {
         this.nuevasuscripcion = nuevasuscripcion;
     }
 
-    public UploadedFile getFoto() {
-        return foto;
+    public String getImagenCliente() {
+        return ImagenCliente;
     }
 
-    public void setFoto(UploadedFile foto) {
-        this.foto = foto;
+    public void setImagenCliente(String ImagenCliente) {
+        this.ImagenCliente = ImagenCliente;
+    }
+
+    public UploadedFile getImagensubida() {
+        return imagensubida;
+    }
+
+    public void setImagensubida(UploadedFile imagensubida) {
+        this.imagensubida = imagensubida;
     }
 
     @FacesConverter(forClass = Cliente.class)

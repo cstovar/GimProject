@@ -74,8 +74,8 @@ public class UsuarioController implements Serializable {
         httpSession.invalidate();
         u.setNombreUsuario(null);
     }
-    
-        public void recibirUsuario() {
+
+    public void recibirUsuario() {
         try {
             int usu = ejbFacade.cambioContrasena(selected.getNombreUsuario());
             if (usu == 0) {
@@ -86,6 +86,11 @@ public class UsuarioController implements Serializable {
         } catch (Exception e) {
             e.getStackTrace();
         }
+    }
+
+    public void redireccion() throws IOException {
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        context.redirect(context.getRequestContextPath() + "/faces/Login.xhtml");
     }
 
     public Usuario getSelected() {

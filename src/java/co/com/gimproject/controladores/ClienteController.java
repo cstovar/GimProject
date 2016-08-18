@@ -45,6 +45,7 @@ public class ClienteController implements Serializable {
     private String ImagenCliente;
     private UploadedFile imagensubida;
     private InputStream is;
+
     public ClienteController() {
     }
 
@@ -103,9 +104,9 @@ public class ClienteController implements Serializable {
     }
 
     public void crear() {
-     
+
         boolean si = ejbFacade.crearClienteSuscripcion(selected, nuevasuscripcion);
-        if (si) {       
+        if (si) {
             ResourceBundle.getBundle("/Bundle").getString("ClienteCreated");
             items = null; // invalidate list of items to trigger re-query
             suscripcionselected = new SuscripcionController();

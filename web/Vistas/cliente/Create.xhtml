@@ -21,7 +21,8 @@
                                            uploadLabel="Subir Imagen" 
                                            cancelLabel="Cancelar" 
                                            update="ICliente" 
-                                           
+                                           sizeLimit="512000"
+                                           fileLimitMessage="Tamaño de imagen excedido"
                                            auto="true"
                                            allowTypes="/(\.|\/)(gif|jpe?g|png|txt)$/"/>
                              <p:graphicImage id="ICliente" value="#{clienteController.imagenCliente}" width="150" height="120"/>

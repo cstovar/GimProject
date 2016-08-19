@@ -31,7 +31,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_foto}"/>
                             </f:facet>
-                            <h:outputText value="#{item.foto}"/>
+                            <p:graphicImage id="foto" value="#{clienteController.mostrarImagen(item.foto)}" height="100" width="100"/>
                         </p:column>
                         <p:column filterBy="#{item.nombres}">
                             <f:facet name="header">

@@ -51,7 +51,7 @@ public class SuscripcionController implements Serializable {
         return null;
     }
 
-   public void fechaFinal() {
+    public void fechaFinal() {
         fechafin = new Date();
         try {
             Calendar calendario = Calendar.getInstance();
@@ -81,28 +81,33 @@ public class SuscripcionController implements Serializable {
             selected.setFechaFin(fechafin);
         } catch (Exception e) {
         }
-    }   
+    }
 
     public String getDiasRestantes() {
         try {
-           final long milisegundospordia = 86400000;
-        Date hoy = new Date();
-        Calendar calendario = Calendar.getInstance();
-        calendario.clear(); ///// eeeeeeerroooooooooooooooor
-        
-        int año = calendario.get(Calendar.YEAR);
-        int mes = calendario.get(Calendar.MONTH -1);
-        int dia = calendario.get(Calendar.DAY_OF_YEAR);
-        
-        Calendar calendariofin = new GregorianCalendar(año, mes, dia);
-        Date fecha = new Date (calendariofin.getTimeInMillis());
-        
-        diasrestantes = (hoy.getTime() - fecha.getTime())/milisegundospordia;
-        
-        return "quedan" + diasrestantes;  
+            final long milisegundospordia = 86400000;
+            Date hoy = new Date();
+            Calendar calendario = Calendar.getInstance();
+            calendario.clear(); ///// eeeeeeerroooooooooooooooor
+
+            int año = calendario.get(Calendar.YEAR);
+            int mes = calendario.get(Calendar.MONTH - 1);
+            int dia = calendario.get(Calendar.DAY_OF_YEAR);
+
+            Calendar calendariofin = new GregorianCalendar(año, mes, dia);
+            Date fecha = new Date(calendariofin.getTimeInMillis());
+
+            diasrestantes = (hoy.getTime() - fecha.getTime()) / milisegundospordia;
+
+            return "quedan" + diasrestantes;
         } catch (Exception e) {
         }
         return null;
+    }
+
+    public void actualizarTablas() {
+        things = null; // Invalidate list of thing to trigger re-query.
+        items = null; // Invalidate list of items to trigger re-query.
     }
 
     public SuscripcionController() {
@@ -135,22 +140,20 @@ public class SuscripcionController implements Serializable {
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("SuscripcionCreated"));
         if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
-            things = null;   // Invalidate list of thing to trigger re-query.
+            actualizarTablas();
         }
     }
 
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("SuscripcionUpdated"));
-        things = null;
+        actualizarTablas();
     }
 
     public void destroy() {
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("SuscripcionDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
-            items = null;    // Invalidate list of items to trigger re-query.
-            things = null;
+            actualizarTablas();
         }
     }
 
@@ -166,10 +169,6 @@ public class SuscripcionController implements Serializable {
             things = getFacade().findByFechaFin();
         }
         return things;
-    }
-    
-    public void recargarLista(){
-    things = null;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

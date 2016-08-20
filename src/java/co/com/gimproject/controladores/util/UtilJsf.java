@@ -28,7 +28,7 @@ public class UtilJsf {
           }
           out.flush();
       }
-          ubicacionImagen = "../../resources/img/tmp" + nombreArchivo;
+          ubicacionImagen = "../../resources/img/" + nombreArchivo;
       } catch (Exception e) {
           System.err.println("no se pudo cargar la imagen");
           e.getMessage();

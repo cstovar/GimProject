@@ -7,6 +7,7 @@ package co.com.gimproject.operaciones;
 
 import co.com.gimproject.modelos.Cliente;
 import co.com.gimproject.modelos.Suscripcion;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,14 +32,17 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
         super(Cliente.class);
     }
 
-    public boolean crearClienteSuscripcion (Cliente cliente, Suscripcion suscripcion) {
+    public boolean crearClienteSuscripcion(Cliente cliente, Suscripcion suscripcion) {
         try {
-            em.merge(cliente); 
-            int id = (int) em.createQuery("SELECT c.idCliente FROM Cliente c WHERE c.identificacion=:identificacion").setParameter("identificacion", cliente.getIdentificacion()).getSingleResult();
-            cliente.setIdCliente(id);
-            suscripcion.setClienteIdCliente(cliente);
-            em.merge(suscripcion);
-            return true;
+            List<Cliente> lista = em.createQuery("SELECT c FROM Cliente c WHERE c.identificacion =:identificacion").setParameter("identificacion", cliente.getIdentificacion()).getResultList();
+            if (lista.isEmpty()) {
+                em.merge(cliente);
+                int id = (int) em.createQuery("SELECT c.idCliente FROM Cliente c WHERE c.identificacion=:identificacion").setParameter("identificacion", cliente.getIdentificacion()).getSingleResult();
+                cliente.setIdCliente(id);
+                suscripcion.setClienteIdCliente(cliente);
+                em.merge(suscripcion);
+                return true;
+            }
         } catch (Exception e) {
             e.getMessage();
         }

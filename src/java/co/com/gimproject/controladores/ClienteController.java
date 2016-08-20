@@ -6,6 +6,10 @@ import co.com.gimproject.controladores.util.JsfUtil.PersistAction;
 import co.com.gimproject.controladores.util.UtilJsf;
 import co.com.gimproject.modelos.Suscripcion;
 import co.com.gimproject.operaciones.ClienteFacade;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -13,6 +17,7 @@ import java.util.Date;
 
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -25,6 +30,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.imageio.ImageIO;
+import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -42,6 +49,9 @@ public class ClienteController implements Serializable {
     private Date fechainicio;
     private String ImagenCliente;
     private UploadedFile imagensubida;
+    private InputStream is;
+    private BufferedImage img;
+
     public ClienteController() {
     }
 
@@ -100,12 +110,14 @@ public class ClienteController implements Serializable {
     }
 
     public void crear() {
-     
+
         boolean si = ejbFacade.crearClienteSuscripcion(selected, nuevasuscripcion);
         if (si) {
-
             ResourceBundle.getBundle("/Bundle").getString("ClienteCreated");
             items = null; // invalidate list of items to trigger re-query
+            suscripcionselected = new SuscripcionController();
+            suscripcionselected.actualizarTablas();
+            selected = null;
         }
         ResourceBundle.getBundle("/Bundle").getString("ClienteNotCreated");
     }
@@ -113,8 +125,8 @@ public class ClienteController implements Serializable {
     public void subirImagen(FileUploadEvent event) {
         FacesMessage mensaje = new FacesMessage();
         try {
-            
-            selected.setFoto(event.getFile().getContents());
+            is = event.getFile().getInputstream();
+            selected.setFoto(IOUtils.toByteArray(is));
             ImagenCliente = UtilJsf.guardaBlobEnFicheroTemporal(selected.getFoto(), event.getFile().getFileName());
             mensaje.setSeverity(FacesMessage.SEVERITY_INFO);
             mensaje.setSummary("Registro cargado correctamente");
@@ -123,6 +135,18 @@ public class ClienteController implements Serializable {
             mensaje.setSummary("Problemas al subir la imagen");
         }
         FacesContext.getCurrentInstance().addMessage("Mensaje", mensaje);
+    }
+
+    public String mostrarImagen(byte[] foto) throws IOException {
+        try {
+            img = ImageIO.read(new ByteArrayInputStream(foto));
+ 
+            ImagenCliente = UtilJsf.guardaBlobEnFicheroTemporal(foto, UUID.randomUUID().toString());
+            return ImagenCliente;
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return null;
     }
 
     protected void setEmbeddableKeys() {
@@ -229,6 +253,14 @@ public class ClienteController implements Serializable {
 
     public void setImagensubida(UploadedFile imagensubida) {
         this.imagensubida = imagensubida;
+    }
+
+    public BufferedImage getImg() {
+        return img;
+    }
+
+    public void setImg(BufferedImage img) {
+        this.img = img;
     }
 
     @FacesConverter(forClass = Cliente.class)

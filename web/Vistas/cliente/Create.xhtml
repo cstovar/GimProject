@@ -61,7 +61,9 @@
                         </p:panelGrid>
                     </p:fieldset> 
 
-                    <p:commandButton actionListener="#{clienteController.crear()}" value="#{bundle.Save}" update="display,:ClienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClienteCreateDialog');"/>
+                    <p:commandButton actionListener="#{clienteController.crear()}" value="#{bundle.Save}" update="display,:ClienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClienteCreateDialog');">
+                        <p:confirm header="Cofirmación" message="Esta seguro que los datos son correctos?" icon="ui-icon-alert" />
+                    </p:commandButton>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ClienteCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

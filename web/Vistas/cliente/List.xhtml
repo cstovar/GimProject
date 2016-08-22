@@ -69,17 +69,23 @@
                             </f:facet>
                             <h:outputText value="#{item.telefono}"/>
                         </p:column>
-                       <!-- <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClienteTitle_estado}"/>
-                            </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.estado}" disabled="true"/>
-                        </p:column> -->
+                        <!-- <p:column>
+                             <f:facet name="header">
+                                 <h:outputText value="#{bundle.ListClienteTitle_estado}"/>
+                             </f:facet>
+                             <p:selectBooleanCheckbox value="#{item.estado}" disabled="true"/>
+                         </p:column> -->
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{clienteController.prepareCreate}" update=":ClienteCreateForm" oncomplete="PF('ClienteCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ClienteViewForm" oncomplete="PF('ClienteViewDialog').show()" disabled="#{empty clienteController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ClienteEditForm" oncomplete="PF('ClienteEditDialog').show()" disabled="#{empty clienteController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{clienteController.destroy}" update=":growl,datalist" disabled="#{empty clienteController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{clienteController.destroy}" update=":growl,datalist" disabled="#{empty clienteController.selected}">
+                                <p:confirm message="Está seguro de eliminar a #{clienteController.selected.nombres} #{clienteController.selected.apellidos}" icon="ui-icon-alert"/>
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

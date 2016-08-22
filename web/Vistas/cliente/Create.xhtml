@@ -14,24 +14,20 @@
                 <h:panelGroup id="display" >
                     <p:fieldset>
 
-                         <p:panelGrid columns="3">
-                             <p:outputLabel value="#{bundle.CreateClienteLabel_foto}" for="fileImagenCliente"/>
-                             <p:fileUpload id="fileImagenCliente" mode="advanced" fileUploadListener="#{clienteController.subirImagen}" 
-                                           label="Elegir"  
-                                           uploadLabel="Subir Imagen" 
-                                           cancelLabel="Cancelar" 
-                                           update="ICliente" 
-                                           sizeLimit="512000"
-                                           fileLimitMessage="Tamaño de imagen excedido"
-                                           auto="true"
-                                           allowTypes="/(\.|\/)(gif|jpe?g|png|txt)$/"/>
-                             <p:graphicImage id="ICliente" value="#{clienteController.imagenCliente}" width="150" height="120"/>
-                         </p:panelGrid>
+                        <p:panelGrid columns="3">
+                            <p:outputLabel value="#{bundle.CreateClienteLabel_foto}" for="fileImagenCliente"/>
+                            <p:fileUpload id="fileImagenCliente" mode="advanced" fileUploadListener="#{clienteController.subirImagen}" 
+                                          label="Elegir"  
+                                          update="ICliente, :growl" 
+                                          sizeLimit="512000"
+                                          invalidSizeMessage="Tamaño de imagen excedido (Max: 512Kb)!"
+                                          auto="true"
+                                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                          invalidFileMessage="Archivo invalido, solo se permiten imágenes!"/>
+                            <p:graphicImage id="ICliente" value="#{clienteController.imagenCliente}" width="150" height="120"/>
+                        </p:panelGrid>
                         <br></br> 
                         <p:panelGrid columns="2" rendered="#{clienteController.selected != null}">
-                            <!--<p:outputLabel value="#{bundle.CreateClienteLabel_foto}" for="foto"/>
-                            <p:inputTextarea rows="4" cols="30" id="foto" value="#{clienteController.selected.foto}" title="#{bundle.EditClienteTitle_foto}" /> -->
-                  
                             <p:outputLabel value="#{bundle.CreateClienteLabel_nombres}" for="nombres" />
                             <p:inputText id="nombres" value="#{clienteController.selected.nombres}" title="#{bundle.CreateClienteTitle_nombres}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_nombres}"/>
                             <p:outputLabel value="#{bundle.CreateClienteLabel_apellidos}" for="apellidos" />

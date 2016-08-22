@@ -24,7 +24,7 @@
                             <f:selectItem itemLabel="Seis Meses" itemValue="Seis Meses" />
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateSuscripcionLabel_fechaInicio}" for="fechaInicio" />
-                        <p:calendar id="fechaInicio" pattern="yyyy-MM-dd" value="#{suscripcionController.selected.fechaInicio}" title="#{bundle.EditSuscripcionTitle_fechaInicio}" readonlyInput="true" showOn="button" locale="es">
+                        <p:calendar id="fechaInicio" pattern="yyyy-MM-dd" value="#{suscripcionController.selected.fechaInicio}" title="#{bundle.EditSuscripcionTitle_fechaInicio}" readonlyInput="true" showOn="button" navigator="true" locale="es">
                             <p:ajax event="dateSelect" listener="#{suscripcionController.fechaFinal}" update="fechaFin" />
                         </p:calendar>
                         <p:outputLabel value="#{bundle.CreateSuscripcionLabel_fechaFin}" for="fechaFin" />

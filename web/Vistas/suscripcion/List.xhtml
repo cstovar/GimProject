@@ -33,14 +33,21 @@
                             </f:facet>
                             <h:outputText value="#{item.clienteIdCliente.nombres} #{item.clienteIdCliente.apellidos}"/>
                         </p:column>
-                        
+
+                        <p:column filterBy="#{item.clienteIdCliente.identificacion}" filterStyle="">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_identificacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.clienteIdCliente.identificacion}"/>
+                        </p:column>
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_foto}"/>
                             </f:facet>
-                        <p:graphicImage id="foto" value="#{clienteController.mostrarImagen(item.clienteIdCliente.foto)}" height="100" width="100"/>
+                            <p:graphicImage id="foto" value="#{clienteController.mostrarImagen(item.clienteIdCliente.foto)}" height="100" width="100"/>
                         </p:column>
-                        
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSuscripcionTitle_fechaInicio}"/>

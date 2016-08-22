@@ -68,4 +68,9 @@
         <param-value>true</param-value>
     </context-param>
     
+    <error-page>
+        <exception-type>javax.ejb.EJBException</exception-type>
+        <location>/Vistas/errors/database-error.xhtml</location>
+    </error-page>
+    
 </web-app>

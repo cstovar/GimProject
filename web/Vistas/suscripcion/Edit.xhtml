@@ -26,7 +26,7 @@
                             <p:ajax event="dateSelect" listener="#{suscripcionController.fechaFinal}" update="fechaFin" />
                         </p:calendar>
                         <p:outputLabel value="#{bundle.EditSuscripcionLabel_fechaFin}" for="fechaFin" />
-                        <p:calendar id="fechaFin" pattern="yyyy/MM/dd" value="#{suscripcionController.selected.fechaFin}" title="#{bundle.EditSuscripcionTitle_fechaFin}" navigator="true" showOn="button" effect="fold" locale="es"/>
+                        <p:calendar id="fechaFin" pattern="yyyy/MM/dd" value="#{suscripcionController.selected.fechaFin}" title="#{bundle.EditSuscripcionTitle_fechaFin}" navigator="true" mindate="#{suscripcionController.selected.fechaInicio}" showOn="button" effect="fold" locale="es"/>
                         <p:outputLabel value="#{bundle.EditSuscripcionLabel_estado}" for="estado" />
                         <p:selectBooleanCheckbox id="estado" value="#{suscripcionController.selected.estado}" />
                         <p:outputLabel value="#{bundle.EditSuscripcionLabel_clienteIdCliente}" for="clienteIdCliente" />

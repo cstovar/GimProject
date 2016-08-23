@@ -53,11 +53,11 @@
                     <p:fieldset > 
                         <p:panelGrid columns="2"> 
                             <p:outputLabel value="#{bundle.CreateSuscripcionLabel_fechaInicio}" />
-                            <p:calendar id="fechaInicio" pattern="yyyy-MM-dd" value="#{clienteController.nuevasuscripcion.fechaInicio}" title="#{bundle.EditSuscripcionTitle_fechaInicio}"  showOn="button" readonlyInput="true" effect="fold" locale="es">
+                            <p:calendar id="fechaInicio" pattern="yyyy-MM-dd" value="#{clienteController.nuevasuscripcion.fechaInicio}" title="#{bundle.EditSuscripcionTitle_fechaInicio}" navigator="true" showOn="button" readonlyInput="true" effect="fold" locale="es">
                                 <p:ajax event="dateSelect" listener="#{clienteController.fechaFinal}" update="fechaFin" />
                             </p:calendar>               
                             <p:outputLabel value="#{bundle.CreateSuscripcionLabel_fechaFin}" />
-                            <p:calendar id="fechaFin" pattern="yyyy-MM-dd" value="#{clienteController.nuevasuscripcion.fechaFin}" readonlyInput="true" showOn="button" effect="fold" locale="es"></p:calendar> 
+                            <p:calendar id="fechaFin" pattern="yyyy-MM-dd" value="#{clienteController.nuevasuscripcion.fechaFin}" navigator="true" mindate="#{clienteController.nuevasuscripcion.fechaInicio}" readonlyInput="true" showOn="button" effect="fold" locale="es"></p:calendar> 
                         </p:panelGrid>
                     </p:fieldset> 
 

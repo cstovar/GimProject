@@ -33,13 +33,13 @@
                             </f:facet>
                             <p:graphicImage id="foto" value="#{clienteController.mostrarImagen(item.foto)}" height="100" width="100"/>
                         </p:column>
-                        <p:column filterBy="#{item.nombres}">
+                        <p:column filterBy="#{item.nombres}" sortBy="#{item.nombres}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_nombres}"/>
                             </f:facet>
                             <h:outputText value="#{item.nombres}"/>
                         </p:column>
-                        <p:column filterBy="#{item.apellidos}" filterMatchMode="contains">
+                        <p:column filterBy="#{item.apellidos}" sortBy="#{item.apellidos}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_apellidos}"/>
                             </f:facet>

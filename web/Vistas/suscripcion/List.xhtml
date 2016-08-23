@@ -56,7 +56,7 @@
                                 <f:convertDateTime pattern="yyyy-MM-dd" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.fechaFin}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSuscripcionTitle_fechaFin}"/>
                             </f:facet>

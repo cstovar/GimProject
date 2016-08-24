@@ -42,11 +42,11 @@
                                 <f:selectItem itemLabel="Seis Meses" itemValue="Seis Meses" />
                             </p:selectOneMenu>
                             <p:outputLabel value="#{bundle.CreateClienteLabel_identificacion}" for="identificacion" />
-                            <p:inputText id="identificacion" value="#{clienteController.selected.identificacion}" title="#{bundle.CreateClienteTitle_identificacion}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_identificacion}"/>
+                            <p:inputText id="identificacion" accesskey="true" value="#{clienteController.selected.identificacion}" title="#{bundle.CreateClienteTitle_identificacion}" required="true"  requiredMessage="#{bundle.CreateClienteRequiredMessage_identificacion}"/>
                             <p:outputLabel value="#{bundle.CreateClienteLabel_direccion}" for="direccion" />
                             <p:inputText id="direccion" value="#{clienteController.selected.direccion}" title="#{bundle.CreateClienteTitle_direccion}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_direccion}"/>
                             <p:outputLabel value="#{bundle.CreateClienteLabel_telefono}" for="telefono" />
-                            <p:inputText id="telefono" value="#{clienteController.selected.telefono}" title="#{bundle.CreateClienteTitle_telefono}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_telefono}"/>
+                            <p:inputText id="telefono" value="#{clienteController.selected.telefono}"  title="#{bundle.CreateClienteTitle_telefono}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_telefono}"/>
                         </p:panelGrid> 
                     </p:fieldset>
 

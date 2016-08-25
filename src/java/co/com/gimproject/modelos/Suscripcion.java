@@ -45,7 +45,7 @@ public class Suscripcion implements Serializable {
     @Column(name = "Fecha_Fin")
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
-    @Column(name = "Estad")
+    @Column(name = "Estado")
     private Boolean estado;
     @JoinColumn(name = "Cliente_Id_Cliente", referencedColumnName = "Id_Cliente")
     @ManyToOne(optional = false)

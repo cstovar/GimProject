@@ -70,7 +70,7 @@
     
     <error-page>
         <exception-type>javax.ejb.EJBException</exception-type>
-        <location>/Vistas/errors/database-error.xhtml</location>
+        <location>/Vistas/errors/errorPage.xhtml</location>
     </error-page>
     
 </web-app>

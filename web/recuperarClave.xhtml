@@ -55,15 +55,6 @@
                                     <strong>Infomación!</strong> Un correo electronico sera enviado con su nueva contraseña
                                 </div>
 
-                                <!--<div class="alert alert-error">
-                                    <button type="button" class="close" data-dismiss="alert">×</button>
-                                    <strong>Lo sentimos!</strong> El usuario que ingresaste no se encuentra registrado
-                                </div>
-
-                                <div class="alert alert-success">
-                                    <button type="button" class="close" data-dismiss="alert">×</button>
-                                    <strong>Listo!</strong> Revisa tu bandeja de entrada
-                                </div>-->
                                 <br />
 
                                 <h:form class="form-horizontal row-fluid">
@@ -83,10 +74,11 @@
                                         <div class="controls">
                                             <p:commandButton class="btn btn-info" value="Enviar Correo" actionListener="#{usuarioController.recibirUsuario()}" update=":growl"></p:commandButton>
                                         </div>
-                                    </div>
+                                    </div> 
                                 </h:form>
+                                
                                 <h:form>
-                                    <p:commandButton class="btn btn-success" style="left:623px; top:290px; position: absolute;" value="Regresar" actionListener="#{usuarioController.redireccion()}"></p:commandButton>
+                                    <p:commandButton class="btn btn-success" style="left:630px; top:290px; position: absolute;" value="Regresar" actionListener="#{usuarioController.redireccion()}"></p:commandButton>
                                 </h:form>
                                 
                             </div>
@@ -107,7 +99,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h4 class="modal-title" id="myModalLabel">Ayuda de Regimp</h4>
+                            <h4 class="modal-title" id="myModalLabel">Ayuda de Zeitgim</h4>
                         </div>
                         <div class="modal-body">
                             Si no recuerda su nombre de usuario o no tiene acceso a su correo electrónico, póngase en contacto con el administrador
@@ -124,7 +116,7 @@
         <footer>
             <div class="footer" style="">
                 <div class="container">
-                    <b class="copyright"> COPYRIGHT © 2016 REGIMP</b> Todos los derechos reservados
+                    <b class="copyright"> © 2016 Zeitgim </b> Todos los derechos reservados
                 </div>
             </div>
         </footer>

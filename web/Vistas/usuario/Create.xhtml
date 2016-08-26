@@ -21,7 +21,12 @@
                         <p:inputText id="correo" value="#{usuarioController.selected.correo}" title="#{bundle.CreateUsuarioTitle_correo}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_correo}"/>
                         
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_clave}" for="clave" />
-                        <p:password id="clave" value="#{usuarioController.claveencriptada}" title="#{bundle.CreateUsuarioTitle_clave}"/>
+                        <p:password id="clave" value="#{usuarioController.claveencriptada}" title="#{bundle.CreateUsuarioTitle_clave}" match="clave" feedback="true" goodLabel="Aceptable" promptLabel="Ingrese su contraseña" weakLabel="Insegura" strongLabel="Segura" validatorMessage="La contraseñas no cionciden" required="true">
+                         <f:validateLength minimum="6" maximum="16"  />
+                        </p:password>
+                        
+                        <p:outputLabel value="Confirme su Contraseña" for="clave" />
+                        <p:password id="clave2" value="#{usuarioController.selected.clave}" required="true" requiredMessage="Confirmar clave:: Se requiere un valor" validatorMessage="Las contraseñas no coinciden"/>
                         
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_estado}" for="estado" />
                         <p:selectBooleanCheckbox id="estado" value="#{usuarioController.selected.estado}" />

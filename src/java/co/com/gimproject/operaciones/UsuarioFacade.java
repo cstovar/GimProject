@@ -40,30 +40,33 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
             }
         } catch (Exception e) {
         }
-
         return null;
     }
 
-    public int cambioContrasena(String nombre) {
+    public boolean cambioContrasena(String nombre) {
         try {
-             String correo = (String) em.createQuery("Select u.correo from Usuario u where u.nombreUsuario=:nombre").setParameter("nombre", nombre).getSingleResult();
+            String correo = (String) em.createQuery("Select u.correo from Usuario u where u.nombreUsuario=:nombre").setParameter("nombre", nombre).getSingleResult();
 
-        if (correo != null) {
-            String nuevaClave = UUID.randomUUID().toString();
-            Email email = new Email();
-            String clave = "28032016Regimp";
-            String de = "regimpequipo@outlook.com";
-            String mensaje = "Por solicitud del usuario recibimos una petición de cambio de contraseña, A continuación procederemos a facilitarle su nueva contraseña \n"
-                    + "Contraseña: ".concat(nuevaClave);
-            String asunto = "Cambio de contraseña regimp";
-            boolean resultado = email.enviarCorreo(de, clave, correo, mensaje, asunto);
-            String cifrado = Encripcion.Encriptar.encriptaEnMD5(nuevaClave);
-            em.createQuery("UPDATE Usuario u set u.clave=:contrasena WHERE u.nombreUsuario=:nombre").setParameter("contrasena", cifrado).setParameter("nombre", nombre).executeUpdate();
-            return 1;
-        }
+            if (correo != null) {
+                String random = UUID.randomUUID().toString();
+                String nuevaClave = random.substring(0,9);
+                Email email = new Email();
+                String clave = "28032016Regimp";
+                String de = "regimpequipo@outlook.com";
+                String mensaje = "Por solicitud del usuario recibimos una petición de cambio de contraseña, A continuación procederemos a facilitarsela \n"
+                        + "Contraseña: ".concat(nuevaClave);
+                String asunto = "Cambio de contraseña regimp";
+                boolean resultado = email.enviarCorreo(de, clave, correo, mensaje, asunto);
+                if (resultado) {
+                    String cifrado = Encripcion.Encriptar.encriptaEnMD5(nuevaClave);
+                    em.createQuery("UPDATE Usuario u set u.clave=:contrasena WHERE u.nombreUsuario=:nombre").setParameter("contrasena", cifrado).setParameter("nombre", nombre).executeUpdate();
+                    return true;
+                }
+            }
         } catch (Exception e) {
+            e.getMessage();
         }
-        return 0;
+        return false;
     }
 
 }

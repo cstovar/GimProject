@@ -39,7 +39,7 @@ public class UsuarioController implements Serializable {
     public UsuarioController() {
     }
 
-    public String login() {
+    public void login() {
         try {
             selected.setClave(Encriptar.encriptaEnMD5(claveencriptada));
             claveencriptada = null;
@@ -47,12 +47,12 @@ public class UsuarioController implements Serializable {
             if (u != null) {
                 ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
                 context.redirect(context.getRequestContextPath() + "/faces/Vistas/cliente/home.xhtml");
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡ERROR!", "El usuario o la contraseña no coinciden con ninguna cuenta"));
             }
         } catch (Exception e) {
-
+            e.getMessage();
         }
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡ERROR!", "El usuario o la contraseña no coinciden con ninguna cuenta"));
-        return null;
     }
 
     public void validarSesion() {
@@ -77,14 +77,14 @@ public class UsuarioController implements Serializable {
 
     public void recibirUsuario() {
         try {
-            int usu = ejbFacade.cambioContrasena(selected.getNombreUsuario());
-            if (usu == 0) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡ERROR!", "El usuario o la contraseña no coinciden con ninguna cuenta"));
-            } else {
+            boolean usu = ejbFacade.cambioContrasena(selected.getNombreUsuario());
+            if (usu) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Actualizado!", "Su contraseña ha sido cambiada"));
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡ERROR!", "No se pudo completar la operacion"));
             }
         } catch (Exception e) {
-            e.getStackTrace();
+            e.getMessage();
         }
     }
 

@@ -16,8 +16,12 @@
                         <p:inputText id="idUsuario" value="#{usuarioController.selected.idUsuario}" title="#{bundle.EditUsuarioTitle_idUsuario}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_idUsuario}"/>
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_nombreUsuario}" for="nombreUsuario" />
                         <p:inputText id="nombreUsuario" value="#{usuarioController.selected.nombreUsuario}" title="#{bundle.EditUsuarioTitle_nombreUsuario}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_nombreUsuario}"/>
-                        <p:outputLabel value="#{bundle.EditUsuarioLabel_clave}" for="clave" />
-                        <p:password id="clave" value="#{usuarioController.claveencriptada}" title="#{bundle.EditUsuarioTitle_clave}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_clave}" for="clave" />
+                        <p:password id="clave" value="#{usuarioController.claveencriptada}" title="#{bundle.CreateUsuarioTitle_clave}" match="clave" feedback="true" goodLabel="Aceptable" promptLabel="Ingrese su contraseña" weakLabel="Insegura" strongLabel="Segura" validatorMessage="La contraseñas no coinciden; El minimo es 6 el maximo 16" required="true">
+                            <f:validateLength minimum="6" maximum="16"  />
+                        </p:password>
+                        <p:outputLabel value="Confirme su Contraseña" for="clave" />
+                        <p:password id="clave2" value="#{usuarioController.selected.clave}" required="true" requiredMessage="Confirmar clave:: Se requiere un valor" validatorMessage="Las contraseñas no coinciden"/>
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_estado}" for="estado" />
                         <p:selectBooleanCheckbox id="estado" value="#{usuarioController.selected.estado}" />
                     </p:panelGrid>

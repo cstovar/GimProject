@@ -33,8 +33,7 @@ public class Email {
             transport.close();
             enviado = true;
         } catch (Exception e) {
-           String minino = e.getMessage();
-            System.out.println(minino);
+            e.getMessage();
         }
         return enviado;
     }

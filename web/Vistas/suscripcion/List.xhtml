@@ -33,14 +33,21 @@
                             </f:facet>
                             <h:outputText value="#{item.clienteIdCliente.nombres} #{item.clienteIdCliente.apellidos}"/>
                         </p:column>
-                        
+
+                        <p:column filterBy="#{item.clienteIdCliente.identificacion}" filterStyle="">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_identificacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.clienteIdCliente.identificacion}"/>
+                        </p:column>
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_foto}"/>
                             </f:facet>
-                        <p:graphicImage id="foto" value="#{clienteController.mostrarImagen(item.clienteIdCliente.foto)}" height="100" width="100"/>
+                            <p:graphicImage id="foto" value="#{clienteController.mostrarImagen(item.clienteIdCliente.foto)}" height="100" width="100"/>
                         </p:column>
-                        
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSuscripcionTitle_fechaInicio}"/>
@@ -49,7 +56,7 @@
                                 <f:convertDateTime pattern="yyyy-MM-dd" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.fechaFin}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSuscripcionTitle_fechaFin}"/>
                             </f:facet>
@@ -68,7 +75,13 @@
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{suscripcionController.prepareCreate}" update=":SuscripcionCreateForm" oncomplete="PF('SuscripcionCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SuscripcionViewForm" oncomplete="PF('SuscripcionViewDialog').show()" disabled="#{empty suscripcionController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SuscripcionEditForm" oncomplete="PF('SuscripcionEditDialog').show()" disabled="#{empty suscripcionController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{suscripcionController.destroy}" update=":growl,datalist" disabled="#{empty suscripcionController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{suscripcionController.destroy}" update=":growl,datalist" disabled="#{empty suscripcionController.selected}">
+                                <p:confirm message="Esta seguro de eliminar la suscripcion de #{suscripcionController.selected.clienteIdCliente.nombres} #{suscripcionController.selected.clienteIdCliente.apellidos}?" icon="ui-icon-alert"/>
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

@@ -14,24 +14,20 @@
                 <h:panelGroup id="display" >
                     <p:fieldset>
 
-                         <p:panelGrid columns="3">
-                             <p:outputLabel value="#{bundle.CreateClienteLabel_foto}" for="fileImagenCliente"/>
-                             <p:fileUpload id="fileImagenCliente" mode="advanced" fileUploadListener="#{clienteController.subirImagen}" 
-                                           label="Elegir"  
-                                           uploadLabel="Subir Imagen" 
-                                           cancelLabel="Cancelar" 
-                                           update="ICliente" 
-                                           sizeLimit="512000"
-                                           fileLimitMessage="Tamaño de imagen excedido"
-                                           auto="true"
-                                           allowTypes="/(\.|\/)(gif|jpe?g|png|txt)$/"/>
-                             <p:graphicImage id="ICliente" value="#{clienteController.imagenCliente}" width="150" height="120"/>
-                         </p:panelGrid>
+                        <p:panelGrid columns="3">
+                            <p:outputLabel value="#{bundle.CreateClienteLabel_foto}" for="fileImagenCliente"/>
+                            <p:fileUpload id="fileImagenCliente" mode="advanced" fileUploadListener="#{clienteController.subirImagen}" 
+                                          label="Elegir"  
+                                          update="ICliente, :growl" 
+                                          sizeLimit="512000"
+                                          invalidSizeMessage="Tamaño de imagen excedido (Max: 512Kb)!"
+                                          auto="true"
+                                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                          invalidFileMessage="Archivo invalido, solo se permiten imágenes!"/>
+                            <p:graphicImage id="ICliente" value="#{clienteController.imagenCliente}" width="150" height="120"/>
+                        </p:panelGrid>
                         <br></br> 
                         <p:panelGrid columns="2" rendered="#{clienteController.selected != null}">
-                            <!--<p:outputLabel value="#{bundle.CreateClienteLabel_foto}" for="foto"/>
-                            <p:inputTextarea rows="4" cols="30" id="foto" value="#{clienteController.selected.foto}" title="#{bundle.EditClienteTitle_foto}" /> -->
-                  
                             <p:outputLabel value="#{bundle.CreateClienteLabel_nombres}" for="nombres" />
                             <p:inputText id="nombres" value="#{clienteController.selected.nombres}" title="#{bundle.CreateClienteTitle_nombres}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_nombres}"/>
                             <p:outputLabel value="#{bundle.CreateClienteLabel_apellidos}" for="apellidos" />
@@ -46,26 +42,28 @@
                                 <f:selectItem itemLabel="Seis Meses" itemValue="Seis Meses" />
                             </p:selectOneMenu>
                             <p:outputLabel value="#{bundle.CreateClienteLabel_identificacion}" for="identificacion" />
-                            <p:inputText id="identificacion" value="#{clienteController.selected.identificacion}" title="#{bundle.CreateClienteTitle_identificacion}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_identificacion}"/>
+                            <p:inputText id="identificacion" accesskey="true" value="#{clienteController.selected.identificacion}" title="#{bundle.CreateClienteTitle_identificacion}" required="true"  requiredMessage="#{bundle.CreateClienteRequiredMessage_identificacion}"/>
                             <p:outputLabel value="#{bundle.CreateClienteLabel_direccion}" for="direccion" />
                             <p:inputText id="direccion" value="#{clienteController.selected.direccion}" title="#{bundle.CreateClienteTitle_direccion}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_direccion}"/>
                             <p:outputLabel value="#{bundle.CreateClienteLabel_telefono}" for="telefono" />
-                            <p:inputText id="telefono" value="#{clienteController.selected.telefono}" title="#{bundle.CreateClienteTitle_telefono}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_telefono}"/>
+                            <p:inputText id="telefono" value="#{clienteController.selected.telefono}"  title="#{bundle.CreateClienteTitle_telefono}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_telefono}"/>
                         </p:panelGrid> 
                     </p:fieldset>
 
                     <p:fieldset > 
                         <p:panelGrid columns="2"> 
                             <p:outputLabel value="#{bundle.CreateSuscripcionLabel_fechaInicio}" />
-                            <p:calendar id="fechaInicio" pattern="yyyy-MM-dd" value="#{clienteController.nuevasuscripcion.fechaInicio}" title="#{bundle.EditSuscripcionTitle_fechaInicio}"  showOn="button" readonlyInput="true" effect="fold" locale="es">
+                            <p:calendar id="fechaInicio" pattern="yyyy-MM-dd" value="#{clienteController.nuevasuscripcion.fechaInicio}" title="#{bundle.EditSuscripcionTitle_fechaInicio}" navigator="true" showOn="button" readonlyInput="true" effect="fold" locale="es">
                                 <p:ajax event="dateSelect" listener="#{clienteController.fechaFinal}" update="fechaFin" />
                             </p:calendar>               
                             <p:outputLabel value="#{bundle.CreateSuscripcionLabel_fechaFin}" />
-                            <p:calendar id="fechaFin" pattern="yyyy-MM-dd" value="#{clienteController.nuevasuscripcion.fechaFin}" readonlyInput="true" showOn="button" effect="fold" locale="es"></p:calendar> 
+                            <p:calendar id="fechaFin" pattern="yyyy-MM-dd" value="#{clienteController.nuevasuscripcion.fechaFin}" navigator="true" mindate="#{clienteController.nuevasuscripcion.fechaInicio}" readonlyInput="true" showOn="button" effect="fold" locale="es"></p:calendar> 
                         </p:panelGrid>
                     </p:fieldset> 
 
-                    <p:commandButton actionListener="#{clienteController.crear()}" value="#{bundle.Save}" update="display,:ClienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClienteCreateDialog');"/>
+                    <p:commandButton actionListener="#{clienteController.crear()}" value="#{bundle.Save}" update="display,:ClienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClienteCreateDialog');">
+                        <p:confirm header="Cofirmación" message="Esta seguro que los datos son correctos?" icon="ui-icon-alert" />
+                    </p:commandButton>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ClienteCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

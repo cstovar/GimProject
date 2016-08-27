@@ -118,6 +118,9 @@ public class ClienteController implements Serializable {
             suscripcionselected = new SuscripcionController();
             suscripcionselected.actualizarTablas();
             selected = null;
+            ImagenCliente = null;
+            is = null;
+            img = null;
         }
         ResourceBundle.getBundle("/Bundle").getString("ClienteNotCreated");
     }
@@ -128,11 +131,16 @@ public class ClienteController implements Serializable {
             is = event.getFile().getInputstream();
             selected.setFoto(IOUtils.toByteArray(is));
             ImagenCliente = UtilJsf.guardaBlobEnFicheroTemporal(selected.getFoto(), event.getFile().getFileName());
-            mensaje.setSeverity(FacesMessage.SEVERITY_INFO);
-            mensaje.setSummary("Registro cargado correctamente");
+            if (ImagenCliente != null) {
+                mensaje.setSeverity(FacesMessage.SEVERITY_INFO);
+                mensaje.setSummary("Registro cargado correctamente");
+            } else {
+                mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
+                mensaje.setSummary("Problemas al subir la imagen");
+            }
+
         } catch (Exception e) {
-            mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
-            mensaje.setSummary("Problemas al subir la imagen");
+
         }
         FacesContext.getCurrentInstance().addMessage("Mensaje", mensaje);
     }
@@ -140,11 +148,12 @@ public class ClienteController implements Serializable {
     public String mostrarImagen(byte[] foto) throws IOException {
         try {
             img = ImageIO.read(new ByteArrayInputStream(foto));
- 
             ImagenCliente = UtilJsf.guardaBlobEnFicheroTemporal(foto, UUID.randomUUID().toString());
             return ImagenCliente;
         } catch (Exception e) {
             e.getMessage();
+        } finally {
+            ImagenCliente = null;
         }
         return null;
     }

@@ -12,10 +12,21 @@
             <h:form id="SuscripcionEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{suscripcionController.selected != null}">
+                        <p:outputLabel value="Termino Suscripcion" for="terminoSuscripcion"/>
+                        <p:selectOneMenu id="terminoSuscripcion" value="#{suscripcionController.terminosuscripcion}" required="true" requiredMessage="#{bundle.EditSuscripcionRequiredMessage_clienteIdCliente}">
+                            <p:ajax listener="#{suscripcionController.fechaFinal}" update="fechaFin" />
+                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                            <f:selectItem itemLabel="Un Mes" itemValue="Un Mes" />
+                            <f:selectItem itemLabel="Dos Meses" itemValue="Dos Meses" />
+                            <f:selectItem itemLabel="Tres Meses" itemValue="Tres Meses" />
+                            <f:selectItem itemLabel="Seis Meses" itemValue="Seis Meses" />
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditSuscripcionLabel_fechaInicio}" for="fechaInicio" />
-                        <p:calendar id="fechaInicio" pattern="yyyy/MM/dd" value="#{suscripcionController.selected.fechaInicio}" title="#{bundle.EditSuscripcionTitle_fechaInicio}"  showOn="button" effect="fold" locale="es"/>
+                        <p:calendar id="fechaInicio" pattern="yyyy/MM/dd" value="#{suscripcionController.selected.fechaInicio}" title="#{bundle.EditSuscripcionTitle_fechaInicio}" navigator="true" showOn="button" effect="fold" locale="es">
+                            <p:ajax event="dateSelect" listener="#{suscripcionController.fechaFinal}" update="fechaFin" />
+                        </p:calendar>
                         <p:outputLabel value="#{bundle.EditSuscripcionLabel_fechaFin}" for="fechaFin" />
-                        <p:calendar id="fechaFin" pattern="yyyy/MM/dd" value="#{suscripcionController.selected.fechaFin}" title="#{bundle.EditSuscripcionTitle_fechaFin}"  showOn="button" effect="fold" locale="es"/>
+                        <p:calendar id="fechaFin" pattern="yyyy/MM/dd" value="#{suscripcionController.selected.fechaFin}" title="#{bundle.EditSuscripcionTitle_fechaFin}" navigator="true" mindate="#{suscripcionController.selected.fechaInicio}" showOn="button" effect="fold" locale="es"/>
                         <p:outputLabel value="#{bundle.EditSuscripcionLabel_estado}" for="estado" />
                         <p:selectBooleanCheckbox id="estado" value="#{suscripcionController.selected.estado}" />
                         <p:outputLabel value="#{bundle.EditSuscripcionLabel_clienteIdCliente}" for="clienteIdCliente" />

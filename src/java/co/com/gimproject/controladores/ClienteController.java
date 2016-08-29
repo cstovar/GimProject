@@ -71,6 +71,8 @@ public class ClienteController implements Serializable {
             nuevasuscripcion.setFechaInicio(fechainicio);
             return ahora;
         } catch (Exception e) {
+        } finally {
+        nuevasuscripcion = null;
         }
         return null;
     }
@@ -106,6 +108,7 @@ public class ClienteController implements Serializable {
             }
             nuevasuscripcion.setFechaFin(fechafin);
         } catch (Exception e) {
+            e.getMessage();
         }
     }
 
@@ -133,7 +136,7 @@ public class ClienteController implements Serializable {
             ImagenCliente = UtilJsf.guardaBlobEnFicheroTemporal(selected.getFoto(), event.getFile().getFileName());
             if (ImagenCliente != null) {
                 mensaje.setSeverity(FacesMessage.SEVERITY_INFO);
-                mensaje.setSummary("Registro cargado correctamente");
+                mensaje.setSummary("Imagen cargada correctamente");
             } else {
                 mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
                 mensaje.setSummary("Problemas al subir la imagen");
@@ -141,6 +144,10 @@ public class ClienteController implements Serializable {
 
         } catch (Exception e) {
 
+        } finally {
+        ImagenCliente = null;
+        selected.setFoto(null);
+        is = null;
         }
         FacesContext.getCurrentInstance().addMessage("Mensaje", mensaje);
     }
@@ -154,6 +161,7 @@ public class ClienteController implements Serializable {
             e.getMessage();
         } finally {
             ImagenCliente = null;
+            img = null;
         }
         return null;
     }

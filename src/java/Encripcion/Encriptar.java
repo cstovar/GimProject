@@ -88,6 +88,6 @@ public class Encriptar {
 
 
     public static void main(String[] args) throws Exception {
-        System.out.println("\n\nEncriptacion en MD5 de 123: '" + encriptaEnMD5("") + "'");
+        System.out.println("\n\nEncriptacion en MD5 de 123: '" + encriptaEnMD5("cristian") + "'");
     }
 }

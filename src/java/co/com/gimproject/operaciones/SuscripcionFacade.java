@@ -5,6 +5,7 @@
  */
 package co.com.gimproject.operaciones;
 
+import co.com.gimproject.modelos.Cliente;
 import co.com.gimproject.modelos.Suscripcion;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,10 +20,11 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class SuscripcionFacade extends AbstractFacade<Suscripcion> {
-    
+
     Calendar fecha;
     Date ahora;
     Date dosdias;
+    private ClienteFacade clienteem;
 
     @PersistenceContext(unitName = "GimProjectPU")
     private EntityManager em;
@@ -31,22 +33,32 @@ public class SuscripcionFacade extends AbstractFacade<Suscripcion> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
-    public List<Suscripcion> findByFechaFin (){
+
+    public List<Suscripcion> findByFechaFin() {
         try {
-           ahora = new Date();
-           fecha=Calendar.getInstance();
-           fecha.setTime(ahora);
-           fecha.add(Calendar.DAY_OF_YEAR, 3);
-           dosdias = fecha.getTime();
-        return em.createQuery("SELECT s from Suscripcion s where s.fechaFin BETWEEN CURRENT_DATE and ?1").setParameter(1, dosdias).getResultList();  
+            ahora = new Date();
+            fecha = Calendar.getInstance();
+            fecha.setTime(ahora);
+            fecha.add(Calendar.DAY_OF_YEAR, 3);
+            dosdias = fecha.getTime();
+            return em.createQuery("SELECT s from Suscripcion s where s.fechaFin BETWEEN CURRENT_DATE and ?1").setParameter(1, dosdias).getResultList();
         } catch (Exception e) {
         }
-       return null;
+        return null;
+    }
+
+    public Date consultarFechaFin(Cliente cliente) {
+        try {
+        Date fecha_fin = (Date) em.createQuery("SELECT MAX(s.fechaFin) FROM Suscripcion s WHERE s.clienteIdCliente=:id_cliente").setParameter("id_cliente", cliente).getSingleResult();
+        return fecha_fin;
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return null;
     }
 
     public SuscripcionFacade() {
         super(Suscripcion.class);
     }
-    
+
 }

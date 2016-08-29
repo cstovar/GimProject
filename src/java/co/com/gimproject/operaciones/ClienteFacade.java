@@ -45,8 +45,22 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
             }
         } catch (Exception e) {
             e.getMessage();
+        } finally {
+            cliente = null;
+            suscripcion = null;
         }
         return false;
+    }
+
+    public void actualizarTerminoSuscripcion(String terminoSuscripcion, int id_Cliente) {
+        try {
+            em.createQuery("UPDATE Cliente c set c.terminoSuscripcion=:terminoSuscripcion WHERE c.idCliente=:id_cliente").setParameter("terminoSuscripcion", terminoSuscripcion).setParameter("id_cliente", id_Cliente).executeUpdate();
+        } catch (Exception e) {
+            e.getMessage();
+        } finally {
+        terminoSuscripcion = null;
+        id_Cliente = 0;
+        }
     }
 
 }

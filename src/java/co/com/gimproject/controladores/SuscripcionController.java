@@ -17,6 +17,7 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -30,6 +31,8 @@ public class SuscripcionController implements Serializable {
 
     @EJB
     private co.com.gimproject.operaciones.SuscripcionFacade ejbFacade;
+    @EJB
+    private co.com.gimproject.operaciones.ClienteFacade clienteEjbFacade;
     private List<Suscripcion> items = null;
     private List<Suscripcion> things = null;
     private Suscripcion selected;
@@ -138,10 +141,21 @@ public class SuscripcionController implements Serializable {
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("SuscripcionCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            actualizarTablas();
+        FacesMessage mensaje = new FacesMessage();
+        Date ff = ejbFacade.consultarFechaFin(selected.getClienteIdCliente());
+        if (ff.compareTo(getFechaActual()) <= 0) {
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("SuscripcionCreated"));
+            if (!JsfUtil.isValidationFailed()) {
+                actualizarTablas();
+                clienteEjbFacade.actualizarTerminoSuscripcion(terminosuscripcion, selected.getClienteIdCliente().getIdCliente());
+            }
+        } else {
+            mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
+            mensaje.setSummary("Lo sentimos, la suscripcion de esté cliente aún no ha terminado!");
         }
+        FacesContext.getCurrentInstance().addMessage("Mensaje", mensaje);
+        ff = null;
+        mensaje = null;
     }
 
     public void update() {

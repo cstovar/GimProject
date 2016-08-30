@@ -45,7 +45,6 @@ public class SuscripcionController implements Serializable {
     public Date getFechaActual() {
         try {
             Date ahora = new Date();
-//        SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
             fechainicio = ahora;
             selected.setFechaInicio(fechainicio);
             return ahora;
@@ -91,8 +90,8 @@ public class SuscripcionController implements Serializable {
             final long milisegundospordia = 86400000;
             Date hoy = new Date();
             Calendar calendario = Calendar.getInstance();
-            calendario.clear(); ///// eeeeeeerroooooooooooooooor
-
+            calendario.setTime(selected.getFechaFin()); 
+                  
             int año = calendario.get(Calendar.YEAR);
             int mes = calendario.get(Calendar.MONTH - 1);
             int dia = calendario.get(Calendar.DAY_OF_YEAR);
@@ -104,6 +103,7 @@ public class SuscripcionController implements Serializable {
 
             return "quedan" + diasrestantes;
         } catch (Exception e) {
+            e.getMessage();
         }
         return null;
     }

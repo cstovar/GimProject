@@ -71,9 +71,7 @@ public class ClienteController implements Serializable {
             nuevasuscripcion.setFechaInicio(fechainicio);
             return ahora;
         } catch (Exception e) {
-        } finally {
-        nuevasuscripcion = null;
-        }
+        } 
         return null;
     }
 
@@ -144,11 +142,7 @@ public class ClienteController implements Serializable {
 
         } catch (Exception e) {
 
-        } finally {
-        ImagenCliente = null;
-        selected.setFoto(null);
-        is = null;
-        }
+        } 
         FacesContext.getCurrentInstance().addMessage("Mensaje", mensaje);
     }
 

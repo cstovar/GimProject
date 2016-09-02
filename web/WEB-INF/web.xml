@@ -60,6 +60,16 @@
     </error-page>
     
     <error-page>
+        <exception-type>DatabaseException</exception-type>
+        <location>/Vistas/errors/errorPage.xhtml</location>
+    </error-page>
+    
+    <error-page>
+        <exception-type>MySQLSyntaxErrorException</exception-type>
+        <location>/Vistas/errors/errorPage.xhtml</location>
+    </error-page>
+    
+    <error-page>
         <exception-type>com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException</exception-type>
         <location>/Vistas/errors/errorCorreo.xhtml</location>
     </error-page>

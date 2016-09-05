@@ -9,41 +9,43 @@
     <ui:composition>
 
         <p:dialog id="SuscripcionCreateDlg" widgetVar="SuscripcionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSuscripcionTitle}">
-            <h:form id="SuscripcionCreateForm">
-                <input type="hidden" value="#{suscripcionController.fechaActual}"></input>
-                <h:panelGroup id="display">
+            <p:cache region="testcache" key="toolbar">
+                <h:form id="SuscripcionCreateForm">
+                    <input type="hidden" value="#{suscripcionController.fechaActual}"></input>
+                    <h:panelGroup id="display">
 
-                    <p:panelGrid columns="2" rendered="#{suscripcionController.selected != null}">
-                        <p:outputLabel value="Termino Suscripcion" for="terminoSuscripcion"/>
-                        <p:selectOneMenu id="terminoSuscripcion" value="#{suscripcionController.terminosuscripcion}" required="true" requiredMessage="#{bundle.EditSuscripcionRequiredMessage_clienteIdCliente}">
-                            <p:ajax listener="#{suscripcionController.fechaFinal}" update="fechaFin" />
-                            <f:selectItem itemLabel="Seleccione" itemValue="" />
-                            <f:selectItem itemLabel="Un Mes" itemValue="Un Mes" />
-                            <f:selectItem itemLabel="Dos Meses" itemValue="Dos Meses" />
-                            <f:selectItem itemLabel="Tres Meses" itemValue="Tres Meses" />
-                            <f:selectItem itemLabel="Seis Meses" itemValue="Seis Meses" />
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateSuscripcionLabel_fechaInicio}" for="fechaInicio" />
-                        <p:calendar id="fechaInicio" pattern="yyyy-MM-dd" value="#{suscripcionController.selected.fechaInicio}" title="#{bundle.EditSuscripcionTitle_fechaInicio}" readonlyInput="true" showOn="button" navigator="true" locale="es">
-                            <p:ajax event="dateSelect" listener="#{suscripcionController.fechaFinal}" update="fechaFin" />
-                        </p:calendar>
-                        <p:outputLabel value="#{bundle.CreateSuscripcionLabel_fechaFin}" for="fechaFin" />
-                        <p:calendar id="fechaFin" pattern="yyyy-MM-dd" value="#{suscripcionController.selected.fechaFin}" mindate="#{suscripcionController.selected.fechaInicio}" title="#{bundle.EditSuscripcionTitle_fechaFin}" navigator="true" readonlyInput="true" showOn="button" locale="es"/>
-                        <p:outputLabel value="#{bundle.CreateSuscripcionLabel_estado}" for="estado" />
-                        <p:selectBooleanCheckbox id="estado" value="#{suscripcionController.selected.estado}" />
-                        <p:outputLabel value="#{bundle.CreateSuscripcionLabel_clienteIdCliente}" for="clienteIdCliente" />
-                        <p:selectOneMenu id="clienteIdCliente" value="#{suscripcionController.selected.clienteIdCliente}" required="true" requiredMessage="#{bundle.EditSuscripcionRequiredMessage_clienteIdCliente}">
-                            <f:selectItems value="#{clienteController.itemsAvailableSelectOne}"
-                                           var="clienteIdClienteItem"
-                                           itemValue="#{clienteIdClienteItem}"
-                                           itemLabel="#{clienteIdClienteItem.nombres} #{clienteIdClienteItem.apellidos}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
+                        <p:panelGrid columns="2" rendered="#{suscripcionController.selected != null}">
+                            <p:outputLabel value="Termino Suscripcion" for="terminoSuscripcion"/>
+                            <p:selectOneMenu id="terminoSuscripcion" value="#{suscripcionController.terminosuscripcion}" required="true" requiredMessage="#{bundle.EditSuscripcionRequiredMessage_clienteIdCliente}">
+                                <p:ajax listener="#{suscripcionController.fechaFinal}" update="fechaFin" />
+                                <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                <f:selectItem itemLabel="Un Mes" itemValue="Un Mes" />
+                                <f:selectItem itemLabel="Dos Meses" itemValue="Dos Meses" />
+                                <f:selectItem itemLabel="Tres Meses" itemValue="Tres Meses" />
+                                <f:selectItem itemLabel="Seis Meses" itemValue="Seis Meses" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="#{bundle.CreateSuscripcionLabel_fechaInicio}" for="fechaInicio" />
+                            <p:calendar id="fechaInicio" pattern="yyyy-MM-dd" value="#{suscripcionController.selected.fechaInicio}" title="#{bundle.EditSuscripcionTitle_fechaInicio}" readonlyInput="true" showOn="button" navigator="true" locale="es">
+                                <p:ajax event="dateSelect" listener="#{suscripcionController.fechaFinal}" update="fechaFin" />
+                            </p:calendar>
+                            <p:outputLabel value="#{bundle.CreateSuscripcionLabel_fechaFin}" for="fechaFin" />
+                            <p:calendar id="fechaFin" pattern="yyyy-MM-dd" value="#{suscripcionController.selected.fechaFin}" mindate="#{suscripcionController.selected.fechaInicio}" title="#{bundle.EditSuscripcionTitle_fechaFin}" navigator="true" readonlyInput="true" showOn="button" locale="es"/>
+                            <p:outputLabel value="#{bundle.CreateSuscripcionLabel_estado}" for="estado" />
+                            <p:selectBooleanCheckbox id="estado" value="#{suscripcionController.selected.estado}" />
+                            <p:outputLabel value="#{bundle.CreateSuscripcionLabel_clienteIdCliente}" for="clienteIdCliente" />
+                            <p:selectOneMenu id="clienteIdCliente" value="#{suscripcionController.selected.clienteIdCliente}" required="true" requiredMessage="#{bundle.EditSuscripcionRequiredMessage_clienteIdCliente}">
+                                <f:selectItems value="#{clienteController.itemsAvailableSelectOne}"
+                                               var="clienteIdClienteItem"
+                                               itemValue="#{clienteIdClienteItem}"
+                                               itemLabel="#{clienteIdClienteItem.nombres} #{clienteIdClienteItem.apellidos}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
 
-                    <p:commandButton actionListener="#{suscripcionController.create}" value="#{bundle.Save}" update="display,:SuscripcionListForm:datalist,:growl" oncomplete="handleSubmit(args,'SuscripcionCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="SuscripcionCreateDialog.hide()"/>
-                </h:panelGroup>
-            </h:form>
+                        <p:commandButton actionListener="#{suscripcionController.create}" value="#{bundle.Save}" update="display,:SuscripcionListForm:datalist,:growl" oncomplete="handleSubmit(args,'SuscripcionCreateDialog');"/>
+                        <p:commandButton value="#{bundle.Cancel}" onclick="SuscripcionCreateDialog.hide()"/>
+                    </h:panelGroup>
+                </h:form>
+            </p:cache>
         </p:dialog>
 
     </ui:composition>

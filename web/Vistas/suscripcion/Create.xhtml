@@ -9,7 +9,7 @@
     <ui:composition>
 
         <p:dialog id="SuscripcionCreateDlg" widgetVar="SuscripcionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSuscripcionTitle}">
-            <p:cache region="testcache" key="toolbar">
+           
                 <h:form id="SuscripcionCreateForm">
                     <input type="hidden" value="#{suscripcionController.fechaActual}"></input>
                     <h:panelGroup id="display">
@@ -45,7 +45,7 @@
                         <p:commandButton value="#{bundle.Cancel}" onclick="SuscripcionCreateDialog.hide()"/>
                     </h:panelGroup>
                 </h:form>
-            </p:cache>
+          
         </p:dialog>
 
     </ui:composition>

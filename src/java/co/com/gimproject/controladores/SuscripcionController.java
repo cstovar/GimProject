@@ -39,7 +39,7 @@ public class SuscripcionController implements Serializable {
     private Suscripcion seleccionado;
     private Date fechainicio;
     private Date fechafin;
-    private long diasrestantes;
+    private String diasrestantes;
     private String terminosuscripcion;
 
     public Date getFechaActual() {
@@ -85,27 +85,30 @@ public class SuscripcionController implements Serializable {
         }
     }
 
-    public String getDiasRestantes() {
+    public void getDiasRestantes(int i) {
         try {
             final long milisegundospordia = 86400000;
             Date hoy = new Date();
             Calendar calendario = Calendar.getInstance();
-            calendario.setTime(selected.getFechaFin()); 
-                  
+
+            calendario.setTime(items.get(i).getFechaFin());
+            Date a = calendario.getTime();
+
             int año = calendario.get(Calendar.YEAR);
-            int mes = calendario.get(Calendar.MONTH - 1);
-            int dia = calendario.get(Calendar.DAY_OF_YEAR);
+            int mes = calendario.get(Calendar.MONTH) - 1;
+            int dia = calendario.get(Calendar.DAY_OF_MONTH);
 
             Calendar calendariofin = new GregorianCalendar(año, mes, dia);
             Date fecha = new Date(calendariofin.getTimeInMillis());
 
-            diasrestantes = (hoy.getTime() - fecha.getTime()) / milisegundospordia;
+            long dr = (fecha.getTime() - hoy.getTime()) / milisegundospordia;
 
-            return "quedan" + diasrestantes;
+            setDiasrestantes("Quedan " + dr);
+
         } catch (Exception e) {
             e.getMessage();
         }
-        return null;
+       
     }
 
     public void actualizarTablas() {
@@ -142,7 +145,7 @@ public class SuscripcionController implements Serializable {
 
     public void create() {
         FacesMessage mensaje = new FacesMessage();
-        Date ff = ejbFacade.consultarFechaFin(selected.getClienteIdCliente());
+        Date ff = ejbFacade.consultarFechaFin(selected.getClienteIdCliente()); // Consultar la fecha de finalizacion
         if (ff.compareTo(getFechaActual()) <= 0) {
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("SuscripcionCreated"));
             if (!JsfUtil.isValidationFailed()) {
@@ -255,6 +258,14 @@ public class SuscripcionController implements Serializable {
 
     public void setTerminosuscripcion(String terminosuscripcion) {
         this.terminosuscripcion = terminosuscripcion;
+    }
+
+    public String getDiasrestantes() {
+        return diasrestantes;
+    }
+
+    public void setDiasrestantes(String diasrestantes) {
+        this.diasrestantes = diasrestantes;
     }
 
     @FacesConverter(forClass = Suscripcion.class)

@@ -65,17 +65,17 @@
                                 <f:convertDateTime pattern="yyyy-MM-dd" />
                             </h:outputText>
                         </p:column>
-                        <!--<p:column>
+                    <!--<p:column>
                             <f:facet name="header">
                                 <h:outputText value="Dias Restantes"/>
                             </f:facet>
-                            <h:outputText value="#{suscripcionController.diasRestantes(item.fechaFin)}"/>
+                            <h:outputText value="#{suscripcionController.diasRestantes}"/>
                         </p:column>-->
 
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{suscripcionController.prepareCreate}" update=":SuscripcionCreateForm" oncomplete="PF('SuscripcionCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SuscripcionViewForm" oncomplete="PF('SuscripcionViewDialog').show()" disabled="#{empty suscripcionController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SuscripcionEditForm" oncomplete="PF('SuscripcionEditDialog').show()" disabled="true"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SuscripcionEditForm" oncomplete="PF('SuscripcionEditDialog').show()"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{suscripcionController.destroy}" update=":growl,datalist" disabled="#{empty suscripcionController.selected}">
                                 <p:confirm message="Esta seguro de eliminar la suscripcion de #{suscripcionController.selected.clienteIdCliente.nombres} #{suscripcionController.selected.clienteIdCliente.apellidos}?" icon="ui-icon-alert"/>
                             </p:commandButton>
@@ -83,8 +83,6 @@
                                 <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                             </p:confirmDialog>
-                            <p:commandButton id="updateButton"   icon="ui-icon-pencil" value="Actualizar!" update=":SuscripcionEditForm" actionListener="#{suscripcionController.actualizarTablas()}"/>
-                            
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

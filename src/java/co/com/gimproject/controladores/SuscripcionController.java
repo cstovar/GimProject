@@ -39,7 +39,7 @@ public class SuscripcionController implements Serializable {
     private Suscripcion seleccionado;
     private Date fechainicio;
     private Date fechafin;
-    private String diasrestantes;
+   
     private String terminosuscripcion;
 
     public Date getFechaActual() {
@@ -85,13 +85,13 @@ public class SuscripcionController implements Serializable {
         }
     }
 
-    public void getDiasRestantes(int i) {
+    public String getDiasRestantes(int i) {
         try {
             final long milisegundospordia = 86400000;
             Date hoy = new Date();
             Calendar calendario = Calendar.getInstance();
-
-            calendario.setTime(items.get(i).getFechaFin());
+        
+                calendario.setTime(items.get(i).getFechaFin());
             Date a = calendario.getTime();
 
             int año = calendario.get(Calendar.YEAR);
@@ -103,12 +103,12 @@ public class SuscripcionController implements Serializable {
 
             long dr = (fecha.getTime() - hoy.getTime()) / milisegundospordia;
 
-            setDiasrestantes("Quedan " + dr);
-
+            return "Quedan " + dr; 
+          
         } catch (Exception e) {
             e.getMessage();
         }
-       
+       return null;
     }
 
     public void actualizarTablas() {
@@ -258,14 +258,6 @@ public class SuscripcionController implements Serializable {
 
     public void setTerminosuscripcion(String terminosuscripcion) {
         this.terminosuscripcion = terminosuscripcion;
-    }
-
-    public String getDiasrestantes() {
-        return diasrestantes;
-    }
-
-    public void setDiasrestantes(String diasrestantes) {
-        this.diasrestantes = diasrestantes;
     }
 
     @FacesConverter(forClass = Suscripcion.class)

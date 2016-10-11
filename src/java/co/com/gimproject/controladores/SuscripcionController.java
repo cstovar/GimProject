@@ -39,7 +39,7 @@ public class SuscripcionController implements Serializable {
     private Suscripcion seleccionado;
     private Date fechainicio;
     private Date fechafin;
-   
+
     private String terminosuscripcion;
 
     public Date getFechaActual() {
@@ -90,8 +90,8 @@ public class SuscripcionController implements Serializable {
             final long milisegundospordia = 86400000;
             Date hoy = new Date();
             Calendar calendario = Calendar.getInstance();
-        
-                calendario.setTime(items.get(i).getFechaFin());
+
+            calendario.setTime(items.get(i).getFechaFin());
             Date a = calendario.getTime();
 
             int año = calendario.get(Calendar.YEAR);
@@ -103,17 +103,17 @@ public class SuscripcionController implements Serializable {
 
             long dr = (fecha.getTime() - hoy.getTime()) / milisegundospordia;
 
-            return "Quedan " + dr; 
-          
+            return "Quedan " + dr;
+
         } catch (Exception e) {
             e.getMessage();
         }
-       return null;
+        return null;
     }
 
     public void actualizarTablas() {
-        things = null; // Invalidate list of thing to trigger re-query.
-        items = null; // Invalidate list of items to trigger re-query.
+            things = null; // Invalidate list of thing to trigger re-query.
+            items = null; // Invalidate list of items to trigger re-query.   
     }
 
     public SuscripcionController() {

@@ -117,7 +117,6 @@ public class ClienteController implements Serializable {
             ResourceBundle.getBundle("/Bundle").getString("ClienteCreated");
             items = null; // invalidate list of items to trigger re-query
             suscripcionselected = new SuscripcionController();
-            suscripcionselected.actualizarTablas();
             selected = null;
             ImagenCliente = null;
             is = null;

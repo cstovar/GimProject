@@ -8,6 +8,11 @@
 
     <ui:composition template="/template.xhtml">
 
+        <ui:define name="head">
+            <f:metadata>
+                <f:event type="preRenderView" listener="#{suscripcionController.actualizarTablas()}"></f:event>
+            </f:metadata>  
+        </ui:define>
 
         <ui:define name="title">
             <h:outputText value="#{bundle.ListSuscripcionTitle}"></h:outputText>
@@ -65,12 +70,12 @@
                                 <f:convertDateTime pattern="yyyy-MM-dd" />
                             </h:outputText>
                         </p:column>
-                    <!--<p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Dias Restantes"/>
-                            </f:facet>
-                            <h:outputText value="#{suscripcionController.diasRestantes}"/>
-                        </p:column>-->
+                        <!--<p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Dias Restantes"/>
+                                </f:facet>
+                                <h:outputText value="#{suscripcionController.diasRestantes}"/>
+                            </p:column>-->
 
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{suscripcionController.prepareCreate}" update=":SuscripcionCreateForm" oncomplete="PF('SuscripcionCreateDialog').show()"/>

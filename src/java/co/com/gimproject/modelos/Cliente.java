@@ -79,7 +79,7 @@ public class Cliente implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "Telefono")
-    private int telefono;
+    private long telefono;
     @Column(name = "estado")
     private Boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clienteIdCliente")
@@ -158,11 +158,11 @@ public class Cliente implements Serializable {
         this.direccion = direccion;
     }
 
-    public int getTelefono() {
+    public long getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(long telefono) {
         this.telefono = telefono;
     }
 
